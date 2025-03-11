@@ -14,6 +14,10 @@
     "storybook": "storybook dev -p 6006"
   },
   "homepage": "https://dgaui.vercel.app/?path=/docs/docs--docs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashraf-ainia/nhc-dga-ui"
+  },
   "keywords": [
     "component",
     "components",
