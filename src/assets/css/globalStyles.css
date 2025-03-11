@@ -1,0 +1,22 @@
+.dgaui {
+  font-family: IBM Plex Sans Arabic;
+  box-sizing: border-box;
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dgaui input,
+.dgaui textarea,
+.dgaui select {
+  font-family: IBM Plex Sans Arabic;
+}
+
+.dgaui_hiddenScrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  /* Hide scrollbar for IE, Edge and Firefox */
+  scrollbar-width: none; /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.dgaui_hiddenScrollbar::-webkit-scrollbar {
+  display: none;
+}
