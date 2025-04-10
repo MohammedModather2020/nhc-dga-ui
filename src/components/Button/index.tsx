@@ -103,6 +103,7 @@ const Button = React.forwardRef<HTMLButtonElement, DGA_ButtonProps>(
         {...props}
         ref={ref}
         className={mergeStrings("dgaui dgaui_button", props.className)}
+        $disabled={props.disabled}
         $customStyle={{
           direction: theme.direction,
           minWidth: sizes[sizeResult].w,
@@ -128,6 +129,7 @@ const Button = React.forwardRef<HTMLButtonElement, DGA_ButtonProps>(
 );
 
 const StyledComponent = styled.button<{
+  $disabled?: boolean;
   $customStyle: {
     direction: string;
     minWidth: number;
@@ -161,6 +163,7 @@ const StyledComponent = styled.button<{
   align-items: center;
   justify-content: center;
   transition: background-color 0.1s;
+  ${(props) => props.$disabled && "pointer-events: none;"};
 
   &:hover {
     background-color: ${(props) => props.$customStyle.hoverBackgroundColor};
