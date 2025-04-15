@@ -43,6 +43,7 @@ export const Default: Story = {
   args: {
     label: "Label",
     placeholder: "Placeholder text",
+    id: "textarea-1",
   },
 };
 

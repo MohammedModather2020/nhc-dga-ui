@@ -44,9 +44,15 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
     // Default
     let fontColor = theme.textColor;
     let placeholderFontColor = theme.palette.neutral[500];
-    let border = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[400]}`;
-    let borderHovered = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
-    let borderFocused = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
+    let border = `1px solid ${
+      error ? theme.palette.error[700] : theme.palette.neutral[400]
+    }`;
+    let borderHovered = `1px solid ${
+      error ? theme.palette.error[700] : theme.palette.neutral[700]
+    }`;
+    let borderFocused = `1px solid ${
+      error ? theme.palette.error[700] : theme.palette.neutral[700]
+    }`;
     let backgroundColor = "#FFF";
     let animationColor = error ? theme.palette.error[700] : theme.textColor;
     let shadowFocus = theme.elevation.shadows.md;
@@ -89,7 +95,12 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
           size,
         }}
       >
-        <label style={{ marginBottom: 8, textAlign: "start" }}>{label}</label>
+        <label
+          style={{ marginBottom: 8, textAlign: "start" }}
+          htmlFor={props.id}
+        >
+          {label}
+        </label>
         {prefix && <div className="prefix">{prefix}</div>}
         {suffix && <div className="suffix">{suffix}</div>}
         <StyledComponent

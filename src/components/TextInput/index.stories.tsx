@@ -51,6 +51,7 @@ export const Default: Story = {
   args: {
     label: "Label",
     placeholder: "Placeholder text",
+    id: "text-input1",
   },
 };
 

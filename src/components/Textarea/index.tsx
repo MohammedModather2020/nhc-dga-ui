@@ -20,8 +20,12 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, DGA_TextareaProps>(
     // Default
     let fontColor = theme.textColor;
     let placeholderFontColor = theme.palette.neutral[500];
-    let border = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[400]}`;
-    let borderHovered = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
+    let border = `1px solid ${
+      error ? theme.palette.error[700] : theme.palette.neutral[400]
+    }`;
+    let borderHovered = `1px solid ${
+      error ? theme.palette.error[700] : theme.palette.neutral[700]
+    }`;
     let backgroundColor = "#FFF";
     let animationColor = error ? theme.palette.error[700] : theme.textColor;
     let shadowFocus = theme.elevation.shadows.md;
@@ -48,7 +52,12 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, DGA_TextareaProps>(
         }}
         className={mergeStrings("dgaui dgaui_textarea", props.className)}
       >
-        <label style={{ marginBottom: 8, textAlign: "start" }}>{label}</label>
+        <label
+          style={{ marginBottom: 8, textAlign: "start" }}
+          htmlFor={props.id}
+        >
+          {label}
+        </label>
         <StyledComponent
           $customStyle={{
             direction: theme.direction,
