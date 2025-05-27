@@ -63,6 +63,25 @@ export const Default = (args: any) => {
   );
 };
 
+export const Multiple = (args: any) => {
+  const [value, setValue] = React.useState([200, 300, 100]);
+
+  return (
+    <Dropdown
+      value={value}
+      onChange={(_e, v) => setValue(v)}
+      {...args}
+      label="Multiple values"
+      style={{ width: 200 }}
+      multiple
+    >
+      <DropdownItem value={100}>Option 1</DropdownItem>
+      <DropdownItem value={200}>Option 2</DropdownItem>
+      <DropdownItem value={300}>Option 3</DropdownItem>
+    </Dropdown>
+  );
+};
+
 export const RTL = withRtl(() => {
   const [value, setValue] = React.useState();
 

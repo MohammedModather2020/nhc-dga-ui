@@ -3,10 +3,12 @@ import styled from "styled-components";
 import useTheme from "../../lib/useTheme";
 import checkIcon from "../../assets/images/check.png";
 import { mergeStrings } from "../../lib/helpers";
+import Checkbox from "../Checkbox";
 
 export interface DGA_DropdownItemProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onClick"> {
   selected?: boolean;
+  multiple?: boolean;
   value?: any;
   onClick?: (e: React.SyntheticEvent, value: any) => void;
   children: React.ReactNode;
@@ -14,13 +16,14 @@ export interface DGA_DropdownItemProps
 
 const DropdownItem: React.FC<DGA_DropdownItemProps> = ({
   selected,
+  multiple,
   value,
   onClick,
   children,
   ...props
 }) => {
   const theme = useTheme();
-
+  
   return (
     <StyledComponent
       className={mergeStrings(
@@ -29,16 +32,22 @@ const DropdownItem: React.FC<DGA_DropdownItemProps> = ({
       )}
       $theme={theme}
       $selected={selected}
+      $multiple={multiple}
       onClick={(e) => {
         onClick && onClick(e, value);
       }}
     >
+      {multiple && <Checkbox color="neutral" size="small" value={selected} />}
       {children}
     </StyledComponent>
   );
 };
 
-const StyledComponent = styled.div<{ $theme: Theme; $selected?: boolean }>`
+const StyledComponent = styled.div<{
+  $theme: Theme;
+  $selected?: boolean;
+  $multiple?: boolean;
+}>`
   direction: ${(props) => props.$theme.direction};
   color: ${(p) => p.$theme.textColor};
   padding: 8px;
@@ -52,7 +61,7 @@ const StyledComponent = styled.div<{ $theme: Theme; $selected?: boolean }>`
   &::after {
     position: absolute;
     content: url(${checkIcon});
-    display: ${(p) => (p.$selected ? "block" : "none")};
+    display: ${(p) => (!p.$multiple && p.$selected ? "block" : "none")};
     inset-inline-end: 16px;
   }
 
@@ -61,6 +70,11 @@ const StyledComponent = styled.div<{ $theme: Theme; $selected?: boolean }>`
   }
   &:active {
     background-color: ${(p) => p.$theme.palette.neutral[50]};
+  }
+
+  .dgaui_checkbox {
+    margin-bottom: 0;
+    margin-inline-end: 8px;
   }
 `;
 

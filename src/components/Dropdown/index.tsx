@@ -27,6 +27,7 @@ interface DGA_DropdownProps
   valueDisplay?: any;
   onChange?: (e: React.SyntheticEvent, value: any) => void;
   onOpen?: Function;
+  multiple?: boolean;
   children: (React.ReactElement<typeof DropdownItem> | null | false)[];
 }
 
@@ -42,6 +43,7 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
   valueDisplay,
   children,
   name,
+  multiple,
   ...props
 }) => {
   const theme = useTheme();
@@ -59,9 +61,15 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
   // Default
   let fontColor = theme.textColor;
   let placeholderFontColor = theme.palette.neutral[500];
-  let border = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[400]}`;
-  let borderHovered = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
-  let borderFocused = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
+  let border = `1px solid ${
+    error ? theme.palette.error[700] : theme.palette.neutral[400]
+  }`;
+  let borderHovered = `1px solid ${
+    error ? theme.palette.error[700] : theme.palette.neutral[700]
+  }`;
+  let borderFocused = `1px solid ${
+    error ? theme.palette.error[700] : theme.palette.neutral[700]
+  }`;
   let backgroundColor = "#FFF";
   let animationColor = error ? theme.palette.error[700] : theme.textColor;
   let shadowFocus = theme.elevation.shadows.md;
@@ -92,14 +100,35 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
     }
   };
 
+  const onChangeHandler = (e: React.SyntheticEvent, newValue: any) => {
+    if (!multiple) {
+      onChange?.(e, newValue);
+    }
+
+    if (multiple) {
+      let newValues = [];
+      if (value && Array.isArray(value) && value.includes(newValue)) {
+        newValues = value.filter((v: any) => v !== newValue);
+      } else {
+        newValues = [...(value || []), newValue];
+      }
+      onChange?.(e, newValues);
+    }
+  };
+
   const newChildren = React.Children.map(children, (child) => {
     if (child) {
       return React.cloneElement(child, {
         ...child.props,
-        onClick: onChange,
+        onClick: onChangeHandler,
         selected:
           (child.props as unknown as DGA_DropdownItemProps)?.selected ||
-          value === (child.props as unknown as DGA_DropdownItemProps)?.value,
+          value === (child.props as unknown as DGA_DropdownItemProps)?.value ||
+          (Array.isArray(value) &&
+            value.includes(
+              (child.props as unknown as DGA_DropdownItemProps).value
+            )),
+        multiple,
       } as DGA_DropdownItemProps as any);
     }
   });
@@ -107,19 +136,35 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
   React.useEffect(() => {
     let newSelectedOptionText = "";
 
-    newChildren?.map((comp) => {
-      if ((comp.props as any as DGA_DropdownItemProps).selected) {
-        newSelectedOptionText = (comp.props as any as DGA_DropdownItemProps)
-          .children as string;
-      }
-    });
+    if (multiple) {
+      newChildren?.map((comp) => {
+        if ((comp.props as any as DGA_DropdownItemProps).selected) {
+          newSelectedOptionText = newSelectedOptionText.concat(
+            ((comp.props as any as DGA_DropdownItemProps).children as string) +
+              ", "
+          );
+        }
+      });
+      // Remove the last comma and space
+      newSelectedOptionText = newSelectedOptionText.slice(
+        0,
+        newSelectedOptionText.length - 2
+      );
+    } else {
+      newChildren?.map((comp) => {
+        if ((comp.props as any as DGA_DropdownItemProps).selected) {
+          newSelectedOptionText = (comp.props as any as DGA_DropdownItemProps)
+            .children as string;
+        }
+      });
+    }
 
     setSelectedOptionText(newSelectedOptionText);
   }, [newChildren, value]);
 
+  // popover
   React.useEffect(() => {
     if (ref.current) {
-
       const resizeHandler = () => {
         if (ref.current) {
           calcPosition();
@@ -129,7 +174,17 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
       const clickHandler = (e: MouseEvent) => {
         // Clicked outside
         if (!ref.current?.contains(e.target as any)) {
-          setOpen(false);
+          // Close dropdown if clicked outside Only if not multiple
+          // If multiple, close only if clicked outside the dropdown items
+          if (
+            !multiple ||
+            (multiple &&
+              e.target &&
+              (e.target as any).classList &&
+              !(e.target as any).classList.contains("dgaui_dropdownItem"))
+          ) {
+            setOpen(false);
+          }
         }
       };
 
@@ -143,6 +198,7 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
     }
   }, [ref]);
 
+  // popover positioner
   React.useEffect(() => {
     if (open) {
       calcPosition();
@@ -272,6 +328,10 @@ const StyledComponent = styled.div<{ $theme: Theme }>`
       opacity: 0;
     }
   }
+
+  .dgaui_checkboxContainer {
+    pointer-events: none;
+  }
 `;
 
 const StyledDiv = styled.div<{
@@ -322,9 +382,14 @@ const StyledDiv = styled.div<{
 
   .valueDisplay {
     height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80%;
+    text-overflow: ellipsis;
+
+    /* vertical middle align */
+    line-height: ${(props) => props.$customStyle.height}px;
   }
 
   .placeholder {
