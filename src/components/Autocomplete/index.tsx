@@ -62,9 +62,15 @@ const Autocomplete = <T,>({
   // Default
   let fontColor = theme.textColor;
   let placeholderFontColor = theme.palette.neutral[500];
-  let border = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[400]}`;
-  let borderHovered = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
-  let borderFocused = `1px solid ${error ? theme.palette.error[700] : theme.palette.neutral[700]}`;
+  let border = `1px solid ${
+    error ? theme.palette.error[700] : theme.palette.neutral[400]
+  }`;
+  let borderHovered = `1px solid ${
+    error ? theme.palette.error[700] : theme.palette.neutral[700]
+  }`;
+  let borderFocused = `1px solid ${
+    error ? theme.palette.error[700] : theme.palette.neutral[700]
+  }`;
   let backgroundColor = "#FFF";
   let animationColor = error ? theme.palette.error[700] : theme.textColor;
   let shadowFocus = theme.elevation.shadows.md;
@@ -167,7 +173,7 @@ const Autocomplete = <T,>({
     }
 
     return result;
-  }, [options, inputValueSearch, open]);
+  }, [options, inputValueSearch]);
 
   const calcPosition = () => {
     if (ref.current) {
@@ -207,7 +213,14 @@ const Autocomplete = <T,>({
 
   // Set text input value from props
   React.useEffect(() => {
-    if (!value) return;
+    if (!value) {
+      setInputValue("");
+      setInputValueSearch("");
+      setSelectedOptions([]);
+      setOpen(false);
+      return;
+    }
+
     if (!Array.isArray(value)) setInputValue(getLocalOptionLabel(value));
 
     if (multiple && Array.isArray(value)) {
