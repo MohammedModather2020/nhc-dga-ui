@@ -24,6 +24,9 @@ const meta = {
     columnDivider: {
       control: { type: "boolean" },
     },
+    headerColumnDivider: {
+      control: { type: "boolean" },
+    },
     lastColumnWidthMultiply: {
       control: { type: "number" },
     },
@@ -34,6 +37,7 @@ const meta = {
     compact: false,
     alternatingRows: false,
     columnDivider: false,
+    headerColumnDivider: true,
     selectable: true,
   },
 } satisfies Meta<typeof Table>;
@@ -115,6 +119,7 @@ export const Default = (args: any) => {
         contained={args.contained}
         selectable={args.selectable}
         columnDivider={args.columnDivider}
+        headerColumnDivider={args.headerColumnDivider}
         lastColumnWidthMultiply={args.lastColumnWidthMultiply}
       />
     </div>
