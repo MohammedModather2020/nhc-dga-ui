@@ -16,6 +16,7 @@ const Table = <T,>({
   onCheck,
   responsiveThreshold,
   columnDivider,
+  headerColumnDivider = true,
   lastColumnWidthMultiply,
 }: {
   contained?: boolean;
@@ -29,6 +30,7 @@ const Table = <T,>({
   onCheck?: (rows: T[]) => void;
   responsiveThreshold?: number;
   columnDivider?: boolean;
+  headerColumnDivider?: boolean;
   lastColumnWidthMultiply?: number;
 }) => {
   const theme = useTheme();
@@ -158,6 +160,7 @@ const Table = <T,>({
   return (
     <StyledComponent
       $theme={theme}
+      $headerColumnDivider={headerColumnDivider}
       $compact={compact}
       $contained={contained}
       $alternatingRows={alternatingRows}
@@ -234,23 +237,25 @@ const Table = <T,>({
                     />
                   </td>
                 )}
-                {Object.entries(item as any).filter((key) => !!labels[key[0]]).map(
-                  ([key, value], itemIndex) =>
-                    (labels as any)[key] && (
-                      <td
-                        key={key}
-                        style={{
-                          flex:
-                            lastColumnWidthMultiply &&
-                            itemIndex === Object.keys(labels).length - 1
-                              ? lastColumnWidthMultiply
-                              : undefined,
-                        }}
-                      >
-                        {value as any}
-                      </td>
-                    )
-                )}
+                {Object.entries(item as any)
+                  .filter((key) => !!labels[key[0]])
+                  .map(
+                    ([key, value], itemIndex) =>
+                      (labels as any)[key] && (
+                        <td
+                          key={key}
+                          style={{
+                            flex:
+                              lastColumnWidthMultiply &&
+                              itemIndex === Object.keys(labels).length - 1
+                                ? lastColumnWidthMultiply
+                                : undefined,
+                          }}
+                        >
+                          {value as any}
+                        </td>
+                      )
+                  )}
               </tr>
             );
           })}
@@ -262,6 +267,7 @@ const Table = <T,>({
 
 const StyledComponent = styled.table<{
   $theme: Theme;
+  $headerColumnDivider?: boolean;
   $contained?: boolean;
   $compact?: boolean;
   $alternatingRows?: boolean;
@@ -344,7 +350,8 @@ const StyledComponent = styled.table<{
 
   th {
     background-color: ${(p) => p.$theme.palette.neutral[100]};
-    border-inline-end: 1px solid ${(p) => p.$theme.palette.neutral[300]};
+    border-inline-end: ${(p) => (p.$headerColumnDivider ? "1" : "0")}px solid
+      ${(p) => p.$theme.palette.neutral[300]};
     border-bottom: 1px solid ${(p) => p.$theme.palette.neutral[300]};
     border-top: 1px solid
       ${(p) => (p.$contained ? 0 : p.$theme.palette.neutral[300])};
