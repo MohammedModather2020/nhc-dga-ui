@@ -3,8 +3,7 @@ import { Calendar } from "react-multi-date-picker";
 import { DateObject } from "react-multi-date-picker";
 import gregorian from "react-date-object/calendars/gregorian";
 import arabic from "react-date-object/calendars/arabic";
-import arabic_ar from "react-date-object/locales/arabic_ar";
-import gregorian_ar from "react-date-object/locales/gregorian_ar";
+import { arabic_ar, gregorian_ar } from "./customLocales";
 import TextInput, { DGA_TextInputProps } from "../TextInput";
 import Menu from "../Menu";
 import styled from "styled-components";
@@ -149,7 +148,9 @@ const DatePicker: React.FC<Props> = ({
   React.useEffect(() => {
     let newDateText = "";
     if (range && Array.isArray(date) && date.length === 2) {
-      newDateText = `${formatDate(date[0])}${rangeSeparator}${formatDate(date[1])}`;
+      newDateText = `${formatDate(date[0])}${rangeSeparator}${formatDate(
+        date[1]
+      )}`;
     } else if (date && !Array.isArray(date)) {
       newDateText = formatDate(date);
     }
@@ -163,26 +164,18 @@ const DatePicker: React.FC<Props> = ({
       range={range}
       calendar={hijri ? arabic : gregorian}
       onMonthChange={(e) => setYearDisplayValue(e.year)}
+      // When overriding the default locale using spread operator "..." then override only digits, we faced an issue when value is set.
+      // And when overriding the locale using object it works fine, so we used the object to override the locale.
       locale={
-        hijri
-          ? {
-              ...arabic_ar,
-              digits: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-            }
-          : theme.direction === "rtl"
-            ? {
-                ...gregorian_ar,
-                digits: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-              }
-            : undefined
+        hijri ? arabic_ar : theme.direction === "rtl" ? gregorian_ar : undefined
       }
       weekStartDayIndex={hijri ? 1 : 0} // As arabic calendar starts in Saturday and I want to unify the start day to be in Sunday
       weekDays={
         hijri
           ? ["سبت", "أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة"]
           : theme.direction === "rtl"
-            ? ["أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"]
-            : undefined
+          ? ["أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"]
+          : undefined
       }
       onChange={onChangeHandler}
       format="YYYY/MM/DD"
@@ -561,5 +554,7 @@ const padStartZero = (text: number | string) =>
   text?.toString().padStart(2, "0");
 
 const formatDate = (date: DateObject) => {
-  return `${padStartZero(date.day)}/${padStartZero(date.month.number)}/${date.year}`;
+  return `${padStartZero(date.day)}/${padStartZero(date.month.number)}/${
+    date.year
+  }`;
 };
