@@ -1,9 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Radio, { sizes } from ".";
-import defaultTheme from "../../lib/defaultTheme";
 
 const meta = {
-  title: "DGAUI/Loading",
+  title: "DGAUI/v2/Loading",
   component: Radio,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
@@ -12,13 +11,13 @@ const meta = {
       options: Object.keys(sizes),
       control: { type: "select" },
     },
-    color: {
-      options: Object.keys(defaultTheme.palette),
+    style: {
+      options: ["primary", "neutral", "on-color"],
       control: { type: "select" },
     },
   },
   args: {
-    color: "primary",
+    style: "primary",
     size: "medium",
   },
 } satisfies Meta<typeof Radio>;

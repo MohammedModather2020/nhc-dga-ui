@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import colors from "./colors";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
+import getLoadingColors from "./colors";
 
 type DGA_LoadingSize =
   | "xxSmall"
@@ -23,24 +23,37 @@ export const sizes: { [k in DGA_LoadingSize]: { wh: number; b: number } } = {
   xxLarge: { wh: 44, b: 4 },
 };
 
-type FGA_LoadingProps = {
-  color?: ColorName;
+interface FGA_LoadingProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "style"> {
+  style?: "primary" | "neutral" | "on-color";
   size?: DGA_LoadingSize;
   className?: string;
-};
+  loadingStyle?: React.CSSProperties;
+}
 
-const Loading: React.FC<FGA_LoadingProps> = ({ color, size, className }) => {
+const Loading: React.FC<FGA_LoadingProps> = ({
+  style = "primary",
+  size = "medium",
+  className,
+  loadingStyle,
+  ...props
+}) => {
   const theme = useTheme();
 
-  let colorResult: ColorName = color ? color : "primary";
+  let styleResult: "primary" | "neutral" | "on-color" = style
+    ? style
+    : "primary";
   let sizeResult: DGA_LoadingSize = size ? size : "medium";
-  const loadingColors = colors(theme);
+  const loadingColors = getLoadingColors(theme);
 
   return (
     <StyledComponent
+      {...props}
       $theme={theme}
-      $color={loadingColors[colorResult]}
-      $size={sizes[sizeResult]}
+      $customStyle={{
+        color: loadingColors[styleResult],
+        size: sizes[sizeResult],
+      }}
       className={mergeStrings("dgaui dgaui_loading", className)}
     />
   );
@@ -50,13 +63,16 @@ export default Loading;
 
 const StyledComponent = styled.div<{
   $theme: Theme;
-  $color: string;
-  $size: { wh: number; b: number };
+  $customStyle: {
+    color: string;
+    size: { wh: number; b: number };
+  };
 }>`
-  width: ${(p) => p.$size.wh}px;
-  height: ${(p) => p.$size.wh}px;
-  border: ${(p) => p.$size.b}px solid ${(p) => p.$theme.palette.neutral[100]};
-  border-bottom-color: ${(p) => p.$color};
+  width: ${(p) => p.$customStyle.size.wh}px;
+  height: ${(p) => p.$customStyle.size.wh}px;
+  border: ${(p) => p.$customStyle.size.b}px solid
+    ${(p) => p.$theme.palette.neutral[100]};
+  border-bottom-color: ${(p) => p.$customStyle.color};
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
