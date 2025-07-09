@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Radio, { sizes } from ".";
+import Loading, { sizes } from ".";
 
 const meta = {
   title: "DGAUI/V2/Loading",
-  component: Radio,
+  component: Loading,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
@@ -20,12 +20,12 @@ const meta = {
     style: "primary",
     size: "medium",
   },
-} satisfies Meta<typeof Radio>;
+} satisfies Meta<typeof Loading>;
 
 export default meta;
 
 // Stories
-type Story = StoryObj<typeof Radio>;
+type Story = StoryObj<typeof Loading>;
 
 export const Default = (args: any) => {
   if (args.style === "on-color") {
@@ -38,9 +38,9 @@ export const Default = (args: any) => {
           textAlign: "center",
         }}
       >
-        <Radio {...args} />
+        <Loading {...args} />
       </div>
     );
   }
-  return <Radio {...args} />;
+  return <Loading {...args} />;
 };

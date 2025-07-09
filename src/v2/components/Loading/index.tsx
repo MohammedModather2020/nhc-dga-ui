@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useTheme from "../../../lib/useTheme";
 import { mergeStrings } from "../../../lib/helpers";
 import getLoadingColors from "./colors";
+import { COLORS } from "../../../lib/constants";
 
 type DGA_LoadingSize =
   | "xxSmall"
@@ -70,7 +71,7 @@ const StyledComponent = styled.div<{
   height: ${(p) => p.$customStyle.size.wh}px;
   border: ${(p) => p.$customStyle.size.b}px solid
     ${(p) =>
-      p.$style === "on-color" ? "#FFFFFF4D" : p.$theme.palette.neutral[100]};
+      p.$style === "on-color" ? COLORS.white30 : p.$theme.palette.neutral[100]};
   border-bottom-color: ${(p) => p.$customStyle.color};
   border-radius: 50%;
   display: inline-block;
