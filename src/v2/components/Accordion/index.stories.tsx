@@ -2,10 +2,10 @@ import { Meta, StoryObj } from "@storybook/react";
 import Accordion, { sizes } from ".";
 import { useArgs } from "@storybook/preview-api";
 import React from "react";
-import withRtl from "../../lib/RTL";
+import withRtl from "../../../lib/RTL";
 
 const meta = {
-  title: "DGAUI/Accordion",
+  title: "DGAUI/V2/Accordion",
   component: Accordion,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
@@ -31,6 +31,7 @@ const meta = {
     disabled: false,
     defaultExpanded: false,
     size: "medium",
+    flush: false,
   },
 } satisfies Meta<typeof Accordion>;
 

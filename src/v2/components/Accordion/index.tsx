@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import arrowDownImage from "../../assets/images/chevron.png";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import arrowDownImage from "../../../assets/images/chevron.png";
+import { mergeStrings } from "../../../lib/helpers";
 
 export const sizes = {
   small: { h: 40, p: 8, f: 16 },
@@ -21,14 +21,18 @@ interface DGA_AccordionProps
   expanded?: boolean;
   onChange?: (event: React.SyntheticEvent, isExpanded: boolean) => void;
   defaultExpanded?: boolean;
+  iconAlignment?: "leading" | "trailing";
+  flush?: boolean;
 }
 
 const Accordion: React.FC<DGA_AccordionProps> = ({
-  size,
+  size = "medium",
   title,
   expanded,
   onChange,
   defaultExpanded,
+  iconAlignment = "trailing",
+  flush = false,
   children,
   ...props
 }) => {
@@ -37,7 +41,6 @@ const Accordion: React.FC<DGA_AccordionProps> = ({
   const [open, setOpen] = React.useState(defaultExpanded);
   const [contentHeight, setContentHeight] = React.useState(0);
 
-  const sizeResult: Size = size ?? "medium";
   let borderTop: string | undefined = `solid 1px ${theme.palette.neutral[300]}`;
   let border = `solid 2px transparent`;
   let cursor = "pointer";
@@ -75,27 +78,53 @@ const Accordion: React.FC<DGA_AccordionProps> = ({
       <StyledComponentTitle
         $customStyle={{
           direction: theme.direction,
-          minHeight: sizes[sizeResult].h,
-          padding: sizes[sizeResult].p,
-          fontSize: sizes[sizeResult].f,
+          minHeight: sizes[size].h,
+          padding: sizes[size].p,
+          fontSize: sizes[size].f,
           fontColor,
           colors: theme.palette.neutral,
           border,
           borderTop,
           cursor,
         }}
+        flush={flush}
         {...props}
         onClick={onTitleClickedHandler}
         className="dgaui dgaui_accordion_title"
       >
-        <span>{title}</span>
-        <img
-          src={arrowDownImage}
-          style={{
-            transition: "all 0.2s",
-            transform: showContent ? "rotateZ(180deg)" : "none",
-          }}
-        />
+        {iconAlignment === "leading" && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              justifyItems: "center",
+              gap: 16,
+            }}
+          >
+            <span>
+              <img
+                src={arrowDownImage}
+                style={{
+                  transition: "all 0.2s",
+                  transform: showContent ? "rotateZ(180deg)" : "none",
+                }}
+              />
+            </span>
+            <span>{title}</span>
+          </div>
+        )}
+        {iconAlignment === "trailing" && (
+          <>
+            <span>{title}</span>
+            <img
+              src={arrowDownImage}
+              style={{
+                transition: "all 0.2s",
+                transform: showContent ? "rotateZ(180deg)" : "none",
+              }}
+            />
+          </>
+        )}
       </StyledComponentTitle>
       <div
         className="dgaui_accordionContent"
@@ -104,6 +133,7 @@ const Accordion: React.FC<DGA_AccordionProps> = ({
           height: showContent ? contentHeight : 0,
           overflow: "hidden",
           transition: "all 0.2s",
+          color: fontColor,
         }}
       >
         <div ref={contentRef} style={{ padding: 16 }}>
@@ -126,11 +156,13 @@ const StyledComponentTitle = styled.button<{
     colors: Color;
     cursor: string;
   };
+  flush?: boolean;
 }>`
   direction: ${(props) => props.$customStyle.direction};
   outline: none;
   min-height: ${(props) => props.$customStyle.minHeight}px;
-  padding: ${(props) => props.$customStyle.padding}px;
+  padding: ${(props) =>
+    props.flush ? "0" : `${props.$customStyle.padding}px`};
   font-size: ${(props) => props.$customStyle.fontSize}px;
   color: ${(props) => props.$customStyle.fontColor};
   background-color: #fff;
