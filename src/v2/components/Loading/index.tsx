@@ -40,10 +40,6 @@ const Loading: React.FC<FGA_LoadingProps> = ({
 }) => {
   const theme = useTheme();
 
-  let styleResult: "primary" | "neutral" | "on-color" = style
-    ? style
-    : "primary";
-  let sizeResult: DGA_LoadingSize = size ? size : "medium";
   const loadingColors = getLoadingColors(theme);
 
   return (
@@ -51,9 +47,10 @@ const Loading: React.FC<FGA_LoadingProps> = ({
       {...props}
       $theme={theme}
       $customStyle={{
-        color: loadingColors[styleResult],
-        size: sizes[sizeResult],
+        color: loadingColors[style],
+        size: sizes[size],
       }}
+      $style={style}
       className={mergeStrings("dgaui dgaui_loading", className)}
     />
   );
@@ -67,11 +64,13 @@ const StyledComponent = styled.div<{
     color: string;
     size: { wh: number; b: number };
   };
+  $style: "primary" | "neutral" | "on-color";
 }>`
   width: ${(p) => p.$customStyle.size.wh}px;
   height: ${(p) => p.$customStyle.size.wh}px;
   border: ${(p) => p.$customStyle.size.b}px solid
-    ${(p) => p.$theme.palette.neutral[100]};
+    ${(p) =>
+      p.$style === "on-color" ? "#FFFFFF4D" : p.$theme.palette.neutral[100]};
   border-bottom-color: ${(p) => p.$customStyle.color};
   border-radius: 50%;
   display: inline-block;

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Radio, { sizes } from ".";
 
 const meta = {
-  title: "DGAUI/v2/Loading",
+  title: "DGAUI/V2/Loading",
   component: Radio,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
@@ -27,4 +27,20 @@ export default meta;
 // Stories
 type Story = StoryObj<typeof Radio>;
 
-export const Default: Story = {};
+export const Default = (args: any) => {
+  if (args.style === "on-color") {
+    return (
+      <div
+        style={{
+          backgroundColor: "#074D31",
+          padding: 56,
+          minWidth: 400,
+          textAlign: "center",
+        }}
+      >
+        <Radio {...args} />
+      </div>
+    );
+  }
+  return <Radio {...args} />;
+};
