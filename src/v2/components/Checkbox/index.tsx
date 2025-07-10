@@ -20,7 +20,6 @@ export interface DGA_CheckboxProps
   label?: React.ReactNode;
   description?: React.ReactNode;
   error?: React.ReactNode;
-  color?: ColorName;
   onChange?: (e: React.SyntheticEvent, value: boolean) => void;
   value?: any;
   size?: "xSmall" | "small" | "medium";
@@ -31,7 +30,6 @@ export interface DGA_CheckboxProps
 const Checkbox: React.FC<DGA_CheckboxProps> = ({
   label,
   description,
-  color,
   error,
   onChange,
   value,

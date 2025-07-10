@@ -3,7 +3,6 @@ import Checkbox, { sizes } from ".";
 
 import React from "react";
 import withRtl from "../../../lib/RTL";
-import defaultTheme from "../../../lib/defaultTheme";
 
 const meta = {
   title: "DGAUI/V2/Checkbox",
@@ -11,10 +10,6 @@ const meta = {
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys(defaultTheme.palette),
-      control: { type: "select" },
-    },
     size: {
       options: Object.keys(sizes),
       control: { type: "radio" },
@@ -37,7 +32,7 @@ const meta = {
     error: "",
     description: "",
     disabled: false,
-    color: "primary",
+    style: "primary",
     size: "medium",
   },
 } satisfies Meta<typeof Checkbox>;
