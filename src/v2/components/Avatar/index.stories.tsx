@@ -4,7 +4,7 @@ import icon from "./icon.png";
 import imageSrc from "./imageSrc.png";
 
 const meta = {
-  title: "DGAUI/Avatar/Avatar",
+  title: "DGAUI/V2/Avatar/Avatar",
   component: Avatar,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
