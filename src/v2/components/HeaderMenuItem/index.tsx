@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
 
 export interface DGA_HeaderMenuItemProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

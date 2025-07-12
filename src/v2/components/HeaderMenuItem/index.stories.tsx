@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import HeaderMenuItem from ".";
 
 const meta = {
-  title: "DGAUI/Header Menu Item",
+  title: "DGAUI/V2/Header Menu Item",
   component: HeaderMenuItem,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
