@@ -1,7 +1,7 @@
 import React from "react";
-import useTheme from "../../lib/useTheme";
+import useTheme from "../../../lib/useTheme";
 import styled from "styled-components";
-import { mergeStrings } from "../../lib/helpers";
+import { mergeStrings } from "../../../lib/helpers";
 import Avatar, { DGA_AvatarProps } from "../Avatar";
 
 type DGA_AvatarGroupProps = {

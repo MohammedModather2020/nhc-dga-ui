@@ -3,10 +3,10 @@ import AvatarGroup from ".";
 import icon from "../Avatar/icon.png";
 import imageSrc from "../Avatar/imageSrc.png";
 import Avatar from "../Avatar";
-import withRtl from "../../lib/RTL";
+import withRtl from "../../../lib/RTL";
 
 const meta = {
-  title: "DGAUI/Avatar/AvatarGroup",
+  title: "DGAUI/V2/Avatar/AvatarGroup",
   component: AvatarGroup,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
