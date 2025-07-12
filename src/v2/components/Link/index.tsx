@@ -1,12 +1,13 @@
 import React from "react";
 import colors, { LinkColor } from "./colors";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
 
-interface DGA_LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface DGA_LinkProps
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "style"> {
   size?: "medium" | "small";
-  color?: AllColorsNames;
+  style?: "primary" | "neutral" | "on-color";
   inline?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
@@ -19,26 +20,23 @@ export const sizes = {
 
 const Link: React.FC<DGA_LinkProps> = ({
   children,
-  color,
-  size,
+  style = "primary",
+  size = "medium",
   inline,
   disabled,
   ...props
 }) => {
   const theme = useTheme();
-  const colorNameResult: AllColorsNames = color ?? "primary";
-  const sizeResult: Size = size ?? "medium";
-  const focusBorderColor =
-    colorNameResult === "onColor" ? "#FFF" : theme.textColor;
-  const selectedColors = colors(theme)[colorNameResult];
+  const focusBorderColor = style === "on-color" ? "#FFF" : theme.textColor;
+  const selectedColors = colors(theme)[style];
 
   return (
     <StyledComponent
       $theme={theme}
-      $fontSize={sizes[sizeResult].f}
-      $lineHeight={sizes[sizeResult].lh}
+      $fontSize={sizes[size].f}
+      $lineHeight={sizes[size].lh}
       $focusBorderColor={focusBorderColor}
-      $colors={selectedColors}
+      $style={selectedColors}
       $inline={inline}
       $disabled={disabled}
       {...props}
@@ -55,13 +53,13 @@ const StyledComponent = styled.a<{
   $fontSize: number;
   $lineHeight: number;
   $focusBorderColor: string;
-  $colors: LinkColor;
   $inline?: boolean;
   $disabled?: boolean;
+  $style: LinkColor;
 }>`
   font-size: ${(p) => p.$fontSize}px;
   line-height: ${(p) => p.$lineHeight}px;
-  color: ${(p) => (p.$disabled ? p.$colors.disabled : p.$colors.default)};
+  color: ${(p) => (p.$disabled ? p.$style.disabled : p.$style.default)};
   text-decoration: ${(p) => (p.$inline ? "underline" : "none")};
   text-underline-offset: 2px;
   transition: color 0.2s;
@@ -71,18 +69,18 @@ const StyledComponent = styled.a<{
   box-sizing: border-box;
 
   &:visited {
-    color: ${(p) => (p.$disabled ? p.$colors.disabled : p.$colors.visited)};
+    color: ${(p) => (p.$disabled ? p.$style.disabled : p.$style.visited)};
   }
   &:focus {
-    color: ${(p) => (p.$disabled ? p.$colors.disabled : p.$colors.default)};
+    color: ${(p) => (p.$disabled ? p.$style.disabled : p.$style.default)};
     border: 2px solid
-      ${(p) => (p.$disabled ? "transparnet" : p.$theme.textColor)};
+      ${(p) => (p.$disabled ? "transparent" : p.$theme.textColor)};
   }
   &:active {
-    color: ${(p) => (p.$disabled ? p.$colors.disabled : p.$colors.active)};
+    color: ${(p) => (p.$disabled ? p.$style.disabled : p.$style.active)};
   }
   &:hover {
-    color: ${(p) => (p.$disabled ? p.$colors.disabled : p.$colors.hovered)};
+    color: ${(p) => (p.$disabled ? p.$style.disabled : p.$style.hovered)};
   }
 `;
 

@@ -1,15 +1,14 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Link, { sizes } from ".";
-import defaultTheme from "../../lib/defaultTheme";
 
 const meta = {
-  title: "DGAUI/Link",
+  title: "DGAUI/V2/Link",
   component: Link,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys({ ...defaultTheme.palette, onColor: "" }),
+    style: {
+      options: ["primary", "neutral", "on-color"],
       control: { type: "select" },
     },
     size: {
@@ -25,9 +24,11 @@ const meta = {
   },
   args: {
     size: "medium",
-    color: "primary",
+    style: "primary",
     inline: false,
     disabled: false,
+    children: "Link to DGAUI",
+    href: "https://dgaui.vercel.app",
   },
 } satisfies Meta<typeof Link>;
 
@@ -36,9 +37,20 @@ export default meta;
 // Stories
 type Story = StoryObj<typeof Link>;
 
-export const Default: Story = {
-  args: {
-    children: "Link to DGAUI",
-    href: "https://dgaui.vercel.app",
-  },
+export const Default = (args: any) => {
+  if (args.style === "on-color") {
+    return (
+      <div
+        style={{
+          backgroundColor: "#074D31",
+          padding: 56,
+          minWidth: 400,
+          textAlign: "center",
+        }}
+      >
+        <Link {...args} />
+      </div>
+    );
+  }
+  return <Link {...args} />;
 };
