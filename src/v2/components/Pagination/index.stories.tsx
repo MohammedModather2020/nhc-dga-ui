@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Pagination from ".";
+import React from "react";
 import { useArgs } from "storybook/internal/preview-api";
+import withRtl from "../../../lib/RTL";
 
 const meta = {
   title: "DGAUI/V2/Pagination",
@@ -12,15 +14,8 @@ const meta = {
       options: ["small", "medium", "large"],
       control: { type: "radio" },
     },
-    rtl: {
-      options: [false, true],
-      control: { type: "boolean" },
-    },
   },
-  args: {
-    size: "small",
-    rtl: false,
-  },
+  args: {},
 } satisfies Meta<typeof Pagination>;
 
 export default meta;
@@ -47,22 +42,16 @@ export const Default: Story = {
   },
 };
 
-export const Rtl: Story = {
-  args: {
-    count: 100,
-    siblingCount: 1,
-    currentPage: 1,
-    size: "small",
-    rtl: true,
-  },
-  render: function Render(args) {
-    const [, updateArgs] = useArgs();
+export const Rtl = withRtl(() => {
+  const [currentPage, setCurrentpage] = React.useState(1);
 
-    return (
-      <Pagination
-        {...args}
-        onPageChange={(pageNumber) => updateArgs({ currentPage: pageNumber })}
-      />
-    );
-  },
-};
+  return (
+    <Pagination
+      count={100}
+      siblingCount={1}
+      currentPage={currentPage}
+      size="small"
+      onPageChange={(pageNumber) => setCurrentpage(pageNumber)}
+    />
+  );
+});

@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import useTheme from "../../../lib/useTheme";
 import { mergeStrings } from "../../../lib/helpers";
 import checkIcon from "../../../assets/images/check.png";
-
 // TODO: Update the import from v2 after refactoring the components
 import Menu from "../../../components/Menu";
 import Tab from "../../../components/Tab";
@@ -14,7 +14,6 @@ interface DGA_PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: Size;
   siblingCount?: number;
   onPageChange?: (pageNumber: number) => void;
-  rtl?: boolean;
 }
 
 const Pagination: React.FC<DGA_PaginationProps> = ({
@@ -23,9 +22,10 @@ const Pagination: React.FC<DGA_PaginationProps> = ({
   siblingCount = 1,
   onPageChange,
   size = "small",
-  rtl = false,
   ...props
 }) => {
+  const theme = useTheme();
+
   const onMenuOpen = () => {
     const menus = document.getElementsByClassName("menueItemsContainer");
 
@@ -99,7 +99,7 @@ const Pagination: React.FC<DGA_PaginationProps> = ({
 
   return (
     <StyledComponent
-      $rtl={rtl}
+      $theme={theme}
       {...props}
       className={mergeStrings("dgaui dgaui_pagination", props.className)}
     >
@@ -206,9 +206,9 @@ const Pagination: React.FC<DGA_PaginationProps> = ({
 };
 
 const StyledComponent = styled.div<{
-  $rtl: boolean;
+  $theme: Theme;
 }>`
-  direction: ${(p) => (p.$rtl ? "rtl" : "ltr")};
+  direction: ${(p) => p.$theme.direction};
   display: flex;
   align-items: center;
 
@@ -218,7 +218,6 @@ const StyledComponent = styled.div<{
   .dgaui_tab {
     min-width: auto;
     margin-inline-end: 8px;
-    direction: ${(p) => (p.$rtl ? "rtl" : "ltr")};
 
     &:last-child {
       margin-inline-end: 0;
