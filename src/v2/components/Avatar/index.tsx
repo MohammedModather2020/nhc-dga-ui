@@ -58,7 +58,7 @@ const Avatar: React.FC<DGA_AvatarProps> = ({
   }
 
   if (imageSrc) {
-    children = <img src={imageSrc} />;
+    children = <img alt="avatar" src={imageSrc} />;
   }
 
   return (

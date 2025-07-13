@@ -48,10 +48,6 @@ const Accordion: React.FC<DGA_AccordionProps> = ({
 
   const showContent = typeof expanded !== "undefined" ? expanded : open;
 
-  if (showContent) {
-    // border = `solid 2px #161616`;
-  }
-
   if (props.disabled) {
     cursor = "default";
     borderTop = `solid 1px ${theme.palette.neutral[300]}`;
@@ -103,6 +99,7 @@ const Accordion: React.FC<DGA_AccordionProps> = ({
           >
             <span>
               <img
+                alt="arrowdown"
                 src={arrowDownImage}
                 style={{
                   transition: "all 0.2s",
@@ -117,6 +114,7 @@ const Accordion: React.FC<DGA_AccordionProps> = ({
           <>
             <span>{title}</span>
             <img
+              alt="arrowdown"
               src={arrowDownImage}
               style={{
                 transition: "all 0.2s",
