@@ -129,12 +129,9 @@ const StyledComponent = styled.div<{
       color: ${(p) => p.$theme.palette.neutral[700]};
       margin-top: 8px;
     }
-    .actionButtons {
+    .actions {
       margin-top: 16px;
-
-      button {
-        margin-inline-end: 16x;
-      }
+      gap: 8px;
     }
   }
   .close {

@@ -34,8 +34,20 @@ export default meta;
 // Stories
 type Story = StoryObj<typeof Tag>;
 
-export const Default: Story = {
-  args: {
-    children: "Label",
-  },
+export const Default = (args: any) => {
+  if (args.style == "onColor") {
+    return (
+      <div
+        style={{
+          backgroundColor: "#074D31",
+          padding: 56,
+          minWidth: 400,
+          textAlign: "center",
+        }}
+      >
+        <Tag {...args}>Label</Tag>
+      </div>
+    );
+  }
+  return <Tag {...args}>Label</Tag>;
 };
