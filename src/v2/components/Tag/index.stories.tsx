@@ -8,10 +8,6 @@ const meta = {
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys(defaultTheme.palette),
-      control: { type: "select" },
-    },
     size: {
       options: Object.keys(sizes),
       control: { type: "radio" },

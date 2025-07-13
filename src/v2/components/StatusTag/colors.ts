@@ -29,7 +29,7 @@ const result = (
     inverted: {
       bg: them.palette.neutral[600],
       iconBg: "#ffffff99",
-      font: them.textColor,
+      font: "#fff",
     },
     ghost: {
       bg: "transparent",

@@ -106,7 +106,7 @@ const StyledComponent = styled.div<{
   justify-content: center;
   font-weight: 500;
   .leadIcon {
-    margin-inline-end: 8px;
+    margin: 3px 4px 3px 0;
     display: "inline-flex";
     alignitems: "center";
   }

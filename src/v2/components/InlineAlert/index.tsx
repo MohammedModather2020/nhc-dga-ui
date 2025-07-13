@@ -56,9 +56,10 @@ const InlineAlert: React.FC<DGA_InlineAlertProps> = ({
           <div className="title">{leadText}</div>
           {helperText && <div className="description">{helperText}</div>}
         </div>
-        {actions && <div className="actionButtons">{actions}</div>}
-        {secondryAction && (
-          <div className="actionButtons">{secondryAction}</div>
+        {(actions || secondryAction) && (
+          <div className="actions">
+            {actions} {secondryAction}
+          </div>
         )}
       </div>
       {closeButton && <div className="close" onClick={() => onClose?.()} />}
