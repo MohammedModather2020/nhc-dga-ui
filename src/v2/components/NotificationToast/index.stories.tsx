@@ -26,7 +26,7 @@ const meta = {
 			control: { type: 'text' },
 		},
 		type: {
-			options: ['neutral', 'error', 'warning', 'success'],
+			options: ['neutral', 'warning', 'success', 'critical', 'info'],
 			control: { type: 'select' },
 			defaultValue: 'neutral',
 		},
@@ -61,7 +61,7 @@ const meta = {
 			</>
 		),
 		rtl: false,
-		type: 'error',
+		type: 'neutral',
 		closeButton: true,
 		position: 'top-left',
 	},
