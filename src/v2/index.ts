@@ -5,5 +5,8 @@ import Avatar from "./components/Avatar";
 import AvatarGroup from "./components/AvatarGroup";
 import Link from "./components/Link";
 import Checkbox from "./components/Checkbox";
+import Pagination from "./components/Pagination";
 
-export { Button, Loading, Accordion, Avatar, AvatarGroup, Link, Checkbox };
+
+export { Button, Loading, Accordion, Avatar, AvatarGroup, Link, Checkbox , pagination };
+
