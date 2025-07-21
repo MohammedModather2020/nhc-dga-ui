@@ -7,6 +7,13 @@ import Link from "./components/Link";
 import Checkbox from "./components/Checkbox";
 import Pagination from "./components/Pagination";
 
-
-export { Button, Loading, Accordion, Avatar, AvatarGroup, Link, Checkbox , pagination };
-
+export {
+  Button,
+  Loading,
+  Accordion,
+  Avatar,
+  AvatarGroup,
+  Link,
+  Checkbox,
+  Pagination,
+};
