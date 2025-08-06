@@ -76,6 +76,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'top-left',
 							leadText: args.leadText,
@@ -90,6 +91,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'top-center',
 							leadText: args.leadText,
@@ -104,6 +106,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'top-right',
 							leadText: args.leadText,
@@ -121,6 +124,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'bottom-left',
 							leadText: args.leadText,
@@ -135,6 +139,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'bottom-center',
 							leadText: args.leadText,
@@ -149,6 +154,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'bottom-right',
 							leadText: args.leadText,
@@ -165,7 +171,7 @@ export const Default = (args: any) => {
 				<Button
 					onClick={() =>
 						toast({
-							rtl: true,
+							rtl: args.rtl,
 							duration: args.duration,
 							position: 'bottom-right',
 							type: args.type,
