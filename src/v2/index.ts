@@ -10,12 +10,27 @@ import Link from "./components/Link";
 import Checkbox from "./components/Checkbox";
 import NavigationDrawerItem from "./components/NavigationDrawerItem";
 import Pagination from "./components/Pagination";
+import List from "./components/List";
+import Modal from "./components/Modal";
+import Tab from "./components/Tab";
+import TabList from "./components/TabList";
 
-
-
-
-
-export { Button, Loading,  Tag, Accordion, Avatar, AvatarGroup, Link, Checkbox , Pagination, InlineAlert, StatusTag , Notification, NavigationDrawerItem };
-
-
-
+export {
+  Button,
+  Loading,
+  Tag,
+  Accordion,
+  Avatar,
+  AvatarGroup,
+  Link,
+  Checkbox,
+  Pagination,
+  InlineAlert,
+  StatusTag,
+  Notification,
+  NavigationDrawerItem,
+  List,
+  Modal,
+  Tab,
+  TabList,
+};
