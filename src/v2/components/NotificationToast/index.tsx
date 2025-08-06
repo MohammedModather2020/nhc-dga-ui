@@ -41,7 +41,8 @@ const NotificationToast: React.FC<NotificationToastProps> = ({
 }) => {
 	const theme = useTheme();
 	const screenSizes = useScreenSizes();
-	const colorsResult = getColors(theme)[type as keyof ReturnType<typeof getColors>];
+	const colorsResult =
+		getColors(theme)[type as keyof ReturnType<typeof getColors>];
 	const isMinimal = !helpText && !actions;
 
 	return (
@@ -102,26 +103,25 @@ const StyledAlertComponent = styled.div<{
 	}
 	.content {
 		width: 100%;
-
 		.leadText {
 			font-size: 16px;
 			font-weight: 600;
 			min-height: 40px;
 			display: flex;
 			align-items: center;
+}
 		.helpText {
 			font-size: 14px;
 			color: ${(p) => p.$theme.palette.neutral[700]};
 			margin-top: 8px;
 		}
+		}
 		.actions {
 			margin-top: 16px;
-
 			button {
 				margin-inline-end: 8px;
 			}
-		}
-	}
+}
 	.close {
 		margin-inline-start: 12px;
 		cursor: pointer;
@@ -238,7 +238,7 @@ const toast: (props: Props) => void = ({
 			<NotificationToast
 				{...props}
 				onClose={closeHandler}
-				closeButton
+				closeButton={props.closeButton}
 				style={{ direction: rtl ? 'rtl' : 'ltr' }}
 			/>
 		</StyledComponent>
@@ -385,6 +385,7 @@ const getAnimation = (position: Position) => {
 const StyledComponent = styled.div<{ $position: Position }>`
 	z-index: 2500;
 	width: 484px;
+	background-color: #fff;
 	position: fixed;
 	transition: all 0.2s;
 	${(p) => getAnimation(p.$position)?.css};
