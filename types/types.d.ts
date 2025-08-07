@@ -52,7 +52,7 @@ type ThemePalette = {
 type Theme = {
   direction: "rtl" | "ltr";
   textColor: string;
-  textOnColor?: string;
+  textOnColor: string;
   fontFamily: string;
   palette: ThemePalette;
   typography: {
