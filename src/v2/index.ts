@@ -1,8 +1,29 @@
-import Button from "./components/Button";
-import Loading from "./components/Loading";
-import Checkbox from "./components/Checkbox";
+import Button from './components/Button';
+import Loading from './components/Loading';
+import Tag from './components/Tag';
 import InlineAlert from './components/InlineAlert';
+import StatusTag from './components/StatusTag';
+import Accordion from './components/Accordion';
+import Avatar from './components/Avatar';
+import AvatarGroup from './components/AvatarGroup';
+import Link from './components/Link';
+import Checkbox from './components/Checkbox';
+import NavigationDrawerItem from './components/NavigationDrawerItem';
+import Pagination from './components/Pagination';
 import NotificationToast from './components/NotificationToast';
-import NavigationDrawerItem from "./components/NavigationDrawerItem";
 
-export { Button, Loading, Checkbox, NavigationDrawerItem, InlineAlert, NotificationToast };
+export {
+	Button,
+	Loading,
+	Tag,
+	Accordion,
+	Avatar,
+	AvatarGroup,
+	Link,
+	Checkbox,
+	Pagination,
+	InlineAlert,
+	StatusTag,
+	NavigationDrawerItem,
+  NotificationToast,
+};

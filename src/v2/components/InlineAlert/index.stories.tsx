@@ -12,7 +12,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     type: {
-      options: ["neutral", "info", "success", "error", "warning"],
+      options: ["neutral", "info", "success", "destructive", "warning"],
       control: { type: "select" },
     },
     background: {
@@ -37,16 +37,15 @@ type Story = StoryObj<typeof InlineAlert>;
 
 export const Default: Story = {
   args: {
-    leadText: "Notification/Alert messag",
-    helpText:
-      "When a Notification/Alert needs a further detailed explanation, it goes here.",
+    leadText: "Notification/Alert message",
+    helpText:  "When a Notification/Alert needs a further detailed explanation, it goes here.",
     closeButton: true,
     actions: (
       <>
-        <Button style="primary" color="neutral" size="large">
+        <Button size="medium" style="subtle">
           Button1
         </Button>
-        <Button style="secondary-outline" color="neutral" size="large">
+        <Button size="medium" style="subtle">
           Button2
         </Button>
       </>
@@ -64,13 +63,13 @@ export const Rtl = withRtl(() => (
   <InlineAlert
     leadText="Notification/Alert messag"
     helpText="When a Notification/Alert needs a further detailed explanation, it goes here."
-    closeButton
+    className=""
     actions={
       <>
         <Button style="secondary-outline" color="neutral">
           Button
         </Button>
-        <Button style="transparent" color="neutral">
+        <Button style="subtle" color="neutral">
           Button
         </Button>
       </>

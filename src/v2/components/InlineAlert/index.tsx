@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 // assets
 import useTheme from "../../../lib/useTheme";
 import { mergeStrings } from "../../../lib/helpers";

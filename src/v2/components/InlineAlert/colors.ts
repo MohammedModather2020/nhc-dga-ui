@@ -1,9 +1,8 @@
-// assets
-import infoIcon from "../../../assets/images/circle_info.png";
-import errorIcon from "../../../assets/images/circle_error.png";
 import neutralIcon from "../../../assets/images/circle_neutral.png";
 import successIcon from "../../../assets/images/circle_success.png";
+import infoIcon from "../../../assets/images/circle_info.png";
 import warningIcon from "../../../assets/images/circle_warning.png";
+import errorIcon from "../../../assets/images/circle_error.png";
 
 export type InlineAlertColor = {
   icon: string;
@@ -45,7 +44,7 @@ const result = (them: Theme): { [k in ThemeColorName]: InlineAlertColor } => ({
   info: {
     icon: infoIcon,
     vLine: them.palette.info[600],
-    border: them.palette.info[200],
+    border: them.palette.neutral[200],
     font: them.palette.info[700],
     bg: them.palette.info[25],
   },
