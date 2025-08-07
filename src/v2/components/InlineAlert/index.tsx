@@ -1,41 +1,40 @@
 import React from "react";
-import colors, { InlineAlertColor } from "./colors";
 import styled from "styled-components";
+
+// assets
 import useTheme from "../../../lib/useTheme";
 import { mergeStrings } from "../../../lib/helpers";
-
+import colors, { InlineAlertColor } from "./colors";
 import buttonCloseIcon from "../../../assets/images/x.png";
 import useScreenSizes from "../../../lib/hooks/useScreenSizes";
 
 export interface DGA_InlineAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   leadText: React.ReactNode;
-  helperText?: string;
-  type?: "neutral" | "destructive" | "warning" | "success" | "info";
+  helpText?: string;
+  type?: ThemeColorName;
   closeButton?: boolean;
   actions?: React.ReactNode;
-  secondryAction?: React.ReactNode;
   onClose?: Function;
   background?: "white" | "color";
 }
 
 const InlineAlert: React.FC<DGA_InlineAlertProps> = ({
   leadText,
-  helperText,
+  helpText,
   type,
   actions,
   closeButton,
   onClose,
   background,
-  secondryAction,
   ...props
 }) => {
   const theme = useTheme();
   const screenSizes = useScreenSizes();
-  const colorNameResult = type ?? "neutral";
+  const colorNameResult: ThemeColorName = type ?? "neutral";
   const colorsResult: InlineAlertColor = colors(theme)[colorNameResult];
   const isColored = background === "color";
-  const isMinimal = !helperText && !actions;
+  const isMinimal = !helpText && !actions;
 
   return (
     <StyledComponent
@@ -52,15 +51,9 @@ const InlineAlert: React.FC<DGA_InlineAlertProps> = ({
     >
       <div className="icon" />
       <div className="content">
-        <div className="contentText">
-          <div className="title">{leadText}</div>
-          {helperText && <div className="description">{helperText}</div>}
-        </div>
-        {(actions || secondryAction) && (
-          <div className="actions">
-            {actions} {secondryAction}
-          </div>
-        )}
+        <div className="leadText">{leadText}</div>
+        {helpText && <div className="helpText">{helpText}</div>}
+        {actions && <div className="actions">{actions}</div>}
       </div>
       {closeButton && <div className="close" onClick={() => onClose?.()} />}
     </StyledComponent>
@@ -108,14 +101,8 @@ const StyledComponent = styled.div<{
   }
   .content {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    .contentText {
-      justify-content: center;
-      min-height: 40px;
-      gap: var(--Text-text-content-gap, 8px);
-    }
-    .title {
+
+    .leadText {
       font-size: 16px;
       font-weight: 600;
       min-height: 40px;
@@ -124,14 +111,17 @@ const StyledComponent = styled.div<{
       color: ${({ $colors, $isColored, $theme }) =>
         $isColored ? $colors.font : $theme.palette.neutral[800]};
     }
-    .description {
+    .helpText {
       font-size: 14px;
       color: ${(p) => p.$theme.palette.neutral[700]};
       margin-top: 8px;
     }
     .actions {
       margin-top: 16px;
-      gap: 8px;
+
+      button {
+        margin-inline-end: 8px;
+      }
     }
   }
   .close {
