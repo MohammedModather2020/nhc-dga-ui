@@ -1,0 +1,11 @@
+.margin{
+  width: 100%;
+  text-align: center;
+}
+
+.margin * {
+  margin: 16px;
+}
+.margin button {
+  width: 150px;
+}

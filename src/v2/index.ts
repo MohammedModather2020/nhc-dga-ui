@@ -14,22 +14,25 @@ import List from "./components/List";
 import Modal from "./components/Modal";
 import Tab from "./components/Tab";
 import TabList from "./components/TabList";
+import NotificationToast from './components/NotificationToast';
+
+
 
 export {
-  Button,
-  Loading,
-  Tag,
-  Accordion,
-  Avatar,
-  AvatarGroup,
-  Link,
-  Checkbox,
-  Pagination,
-  InlineAlert,
-  StatusTag,
-  Notification,
-  NavigationDrawerItem,
-  List,
+	Button,
+	Loading,
+	Tag,
+	Accordion,
+	Avatar,
+	AvatarGroup,
+	Link,
+	Checkbox,
+	Pagination,
+	InlineAlert,
+	StatusTag,
+	NavigationDrawerItem,
+  NotificationToast,
+List,
   Modal,
   Tab,
   TabList,

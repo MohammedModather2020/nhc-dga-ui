@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
+
+// custom-deps
 import InlineAlert from ".";
-import Button from "./../Button";
+import Button from "../Button";
 import withRtl from "../../../lib/RTL";
 
 const meta = {
@@ -35,9 +37,8 @@ type Story = StoryObj<typeof InlineAlert>;
 
 export const Default: Story = {
   args: {
-    leadText: "Notification/Alert messag",
-    helperText:
-      "When a Notification/Alert needs a further detailed explanation, it goes here.",
+    leadText: "Notification/Alert message",
+    helpText:  "When a Notification/Alert needs a further detailed explanation, it goes here.",
     closeButton: true,
     actions: (
       <>
@@ -61,7 +62,7 @@ export const Minimal: Story = {
 export const Rtl = withRtl(() => (
   <InlineAlert
     leadText="Notification/Alert messag"
-    helperText="When a Notification/Alert needs a further detailed explanation, it goes here."
+    helpText="When a Notification/Alert needs a further detailed explanation, it goes here."
     className=""
     actions={
       <>

@@ -12,24 +12,15 @@ export type InlineAlertColor = {
   border: string;
 };
 
-const result = (
-  them: Theme
-): {
-  [k in
-    | "neutral"
-    | "destructive"
-    | "warning"
-    | "success"
-    | "info"]: InlineAlertColor;
-} => ({
+const result = (them: Theme): { [k in ThemeColorName]: InlineAlertColor } => ({
   neutral: {
     icon: neutralIcon,
     vLine: them.palette.neutral[200],
-    border: them.palette.neutral[300],
+    border: them.palette.neutral[200],
     font: them.palette.neutral[800],
     bg: them.palette.neutral[25],
   },
-  destructive: {
+  error: {
     icon: errorIcon,
     vLine: them.palette.error[600],
     border: them.palette.error[200],
