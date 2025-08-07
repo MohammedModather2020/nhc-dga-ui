@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
 import Tab, { DGA_TabProps } from "../Tab";
 
 interface DGA_TagProps extends React.HTMLAttributes<HTMLDivElement> {

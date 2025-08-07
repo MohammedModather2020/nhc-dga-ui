@@ -1,22 +1,21 @@
 import { Meta, StoryObj } from "@storybook/react";
 import List from ".";
-import defaultTheme from "../../lib/defaultTheme";
 import checkPrimaryIcon from "./checkPrimaryIcon.svg";
 
 const meta = {
-  title: "DGAUI/List",
+  title: "DGAUI/V2/List",
   component: List,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys({ ...defaultTheme.palette, onColor: "" }),
+    style: {
+      options: ["primary", "neutral", "on-color"],
       control: { type: "select" },
     },
   },
   args: {
-    color: "primary",
-    type: "icon",
+    style: "primary",
+    type: "with-icon",
     level: "1",
     iconUrl: checkPrimaryIcon,
   },
@@ -37,14 +36,34 @@ export const Default: Story = {
       </>
     ),
   },
+  render: (args) => {
+    if (args.style === "on-color") {
+      return (
+        <div
+          style={{
+            backgroundColor: "#074D31",
+            padding: 56,
+            minWidth: 400,
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <List {...args} />
+        </div>
+      );
+    }
+    return <List {...args} />;
+  },
 };
 
 export const LevelsOl = () => {
   return (
-    <List type="ol">
+    <List type="ordered-list">
       <li>List item</li>
       <li>List item</li>
-      <List type="ol" level={2}>
+      <List type="ordered-list" level={2}>
         <li>List item</li>
         <li>List item</li>
         <li>List item</li>
@@ -56,10 +75,10 @@ export const LevelsOl = () => {
 
 export const LevelsUl = () => {
   return (
-    <List type="ul">
+    <List type="unordered-list">
       <li>List item</li>
       <li>List item</li>
-      <List type="ul" level={2}>
+      <List type="unordered-list" level={2}>
         <li>List item</li>
         <li>List item</li>
         <li>List item</li>

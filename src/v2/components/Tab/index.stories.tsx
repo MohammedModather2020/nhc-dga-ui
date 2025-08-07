@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Tab, { sizes } from ".";
 import leadingIcon from "./leadingIcon.svg";
-import withRtl from "../../lib/RTL";
+import withRtl from "../../../lib/RTL";
 import React from "react";
 
 const meta = {
-  title: "DGAUI/Tabs/Tab",
+  title: "DGAUI/V2/Tabs/Tab",
   component: Tab,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

@@ -1,13 +1,13 @@
 import React from "react";
 import colors, { ListColor } from "./colors";
 import styled, { css } from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
 
 interface DGA_LinkProps
-  extends Omit<React.OlHTMLAttributes<HTMLOListElement>, "type"> {
-  color?: AllColorsNames;
-  type?: "ol" | "ul" | "icon";
+  extends Omit<React.OlHTMLAttributes<HTMLOListElement>, "style" | "type"> {
+  style?: "primary" | "neutral" | "on-color";
+  type?: "ordered-list" | "unordered-list" | "with-icon";
   level?: 1 | 2 | "1" | "2";
   iconUrl?: string;
   children: React.ReactNode;
@@ -15,17 +15,17 @@ interface DGA_LinkProps
 
 const List: React.FC<DGA_LinkProps> = ({
   children,
-  color,
-  type = "ol",
+  style = "primary",
+  type = "ordered-list",
   level = 1,
   iconUrl = "",
   ...props
 }) => {
   const theme = useTheme();
-  const colorNameResult: AllColorsNames = color ?? "primary";
-  const selectedColors = colors(theme)[colorNameResult];
+  const selectedColors = colors(theme)[style];
 
-  const Result = type === "ol" ? StyledOlComponent : StyledUlComponent;
+  const Result =
+    type === "ordered-list" ? StyledOlComponent : StyledUlComponent;
 
   return (
     <Result
@@ -34,7 +34,7 @@ const List: React.FC<DGA_LinkProps> = ({
       $listStyleType={getListStyleType(type, level)}
       {...props}
       className={mergeStrings("dgaui dgaui_list", props.className)}
-      type={type === "ol" && +level === 1 ? "1" : "a"}
+      type={type === "ordered-list" && +level === 1 ? "1" : "a"}
       $iconUrl={iconUrl}
       $level={+level}
     >
@@ -79,7 +79,7 @@ const getCss = (p: {
     padding-inline-start: ${p.$level === 1 ? 0 : ""};
 
     ${p.$listStyleType ? "list-style-type: " + p.$listStyleType : ""};
-    ${p.$listStyleType === "icon" && p.$iconUrl
+    ${p.$listStyleType === "with-icon" && p.$iconUrl
       ? css`
           li {
             display: flex;
@@ -106,13 +106,13 @@ const getCss = (p: {
 };
 
 const getListStyleType = (
-  type: "ol" | "ul" | "icon",
+  type: "ordered-list" | "unordered-list" | "with-icon",
   anyLevel: string | number
 ) => {
   const level = +anyLevel;
 
   switch (type) {
-    case "ol": {
+    case "ordered-list": {
       if (level === 1) {
         return "1";
       }
@@ -121,7 +121,7 @@ const getListStyleType = (
       }
       return "";
     }
-    case "ul": {
+    case "unordered-list": {
       if (level === 1) {
         return `"-  "`;
       }
@@ -131,7 +131,7 @@ const getListStyleType = (
       return "";
     }
     default: {
-      return "icon";
+      return "with-icon";
     }
   }
 };

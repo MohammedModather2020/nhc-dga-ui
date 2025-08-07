@@ -2,11 +2,11 @@ import React from "react";
 import { Meta } from "@storybook/react";
 import Modal from ".";
 import Button from "../Button";
-import withRtl from "../../lib/RTL";
-import circleInfoEx from "../../assets/images/circle_info_ex.svg";
+import withRtl from "../../../lib/RTL";
+import circleInfoEx from "../../../assets/images/circle_info_ex.svg";
 
 const meta = {
-  title: "DGAUI/Modal",
+  title: "DGAUI/V2/Modal",
   component: Modal,
   parameters: { layout: "centered" },
   args: {

@@ -3,10 +3,10 @@ import TabList from ".";
 import leadingIcon from "../Tab/leadingIcon.svg";
 import Tab, { sizes } from "../Tab";
 import React from "react";
-import withRtl from "../../lib/RTL";
+import withRtl from "../../../lib/RTL";
 
 const meta = {
-  title: "DGAUI/Tabs/TabList",
+  title: "DGAUI/V2/Tabs/TabList",
   component: TabList,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

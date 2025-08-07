@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { mergeStrings } from "../../lib/helpers";
-import buttonCloseIcon from "../../assets/images/x.png";
-import useScreenSizes from "../../lib/hooks/useScreenSizes";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
+import buttonCloseIcon from "../../../assets/images/x.png";
+import useScreenSizes from "../../../lib/hooks/useScreenSizes";
 import Button from "../Button";
 
 interface DGA_ModalProps

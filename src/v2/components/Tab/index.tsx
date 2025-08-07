@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { mergeStrings } from "../../lib/helpers";
+import useTheme from "../../../lib/useTheme";
+import { mergeStrings } from "../../../lib/helpers";
 
 export const sizes = {
   small: { w: 73, h: 36, p: "8px 12px" },
