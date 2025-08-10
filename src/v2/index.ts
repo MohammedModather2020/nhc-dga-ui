@@ -18,6 +18,7 @@ import NotificationToast from "./components/NotificationToast";
 import Radio from "./components/Radio";
 import RadioGroup from "./components/RadioGroup";
 
+
 export {
   Button,
   Loading,
@@ -38,4 +39,5 @@ export {
   TabList,
   Radio,
   RadioGroup,
+ ProgressIndicator
 };
