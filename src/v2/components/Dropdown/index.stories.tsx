@@ -30,7 +30,7 @@ const meta = {
       control: { type: "radio" },
       table: { defaultValue: { summary: "default" } },
     },
-    variant: {
+    style: {
       options: ["default", "filled", "filled-darker", "filled-lighter"],
       control: { type: "radio" },
       table: { defaultValue: { summary: "default" } },
@@ -48,7 +48,7 @@ const meta = {
     size: "large",
     label: "Label",
     state: "default",
-    variant: "default",
+    style: "default",
     filled: false,
     error: false,
   },
@@ -68,8 +68,8 @@ export const Default = (args: any) => {
       value={value}
       valueDisplay={`${value} $`}
       onChange={(_e, v) => setValue(v)}
+      dropdownStyle={{ width: "200px" }}
       {...args}
-      style={{ width: 200 }}
     >
       <DropdownItem value={100}>Option 1</DropdownItem>
       <DropdownItem value={200}>Option 2</DropdownItem>
@@ -87,8 +87,8 @@ export const Multiple = (args: any) => {
       onChange={(_e, v) => setValue(v)}
       {...args}
       label="Multiple values"
-      style={{ width: 200 }}
       multiple
+      dropdownStyle={{ width: "200px" }}
     >
       <DropdownItem value={100}>Option 1</DropdownItem>
       <DropdownItem value={200}>Option 2</DropdownItem>
@@ -107,7 +107,7 @@ export const Filled = (args: any) => {
         value={value}
         onChange={(_e, v) => setValue(v)}
         filled={false}
-        style={{ width: 200 }}
+        dropdownStyle={{ width: "200px" }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -115,11 +115,11 @@ export const Filled = (args: any) => {
       </Dropdown>
 
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Filled"
         value={value}
         onChange={(_e, v) => setValue(v)}
         filled={true}
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -129,58 +129,66 @@ export const Filled = (args: any) => {
   );
 };
 
-export const WithVariants = (args: any) => {
+export const WithStyles = (args: any) => {
   const [value, setValue] = React.useState(200);
 
   return (
     <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-      <Dropdown
-        label="Default Style"
-        value={value}
-        onChange={(_e, v) => setValue(v)}
-        variant="default"
-        style={{ width: 200 }}
-      >
-        <DropdownItem value={100}>Option 1</DropdownItem>
-        <DropdownItem value={200}>Option 2</DropdownItem>
-        <DropdownItem value={300}>Option 3</DropdownItem>
-      </Dropdown>
+      <div style={{ width: 200 }}>
+        <Dropdown
+          label="Default Style"
+          value={value}
+          onChange={(_e, v) => setValue(v)}
+          style="default"
+          dropdownStyle={{ width: "200px" }}
+        >
+          <DropdownItem value={100}>Option 1</DropdownItem>
+          <DropdownItem value={200}>Option 2</DropdownItem>
+          <DropdownItem value={300}>Option 3</DropdownItem>
+        </Dropdown>
+      </div>
 
-      <Dropdown
-        label="Filled Style"
-        value={value}
-        onChange={(_e, v) => setValue(v)}
-        variant="filled"
-        style={{ width: 200 }}
-      >
-        <DropdownItem value={100}>Option 1</DropdownItem>
-        <DropdownItem value={200}>Option 2</DropdownItem>
-        <DropdownItem value={300}>Option 3</DropdownItem>
-      </Dropdown>
+      <div style={{ width: 200 }}>
+        <Dropdown
+          dropdownStyle={{ width: "200px" }}
+          label="Filled Style"
+          value={value}
+          onChange={(_e, v) => setValue(v)}
+          style="filled"
+        >
+          <DropdownItem value={100}>Option 1</DropdownItem>
+          <DropdownItem value={200}>Option 2</DropdownItem>
+          <DropdownItem value={300}>Option 3</DropdownItem>
+        </Dropdown>
+      </div>
 
-      <Dropdown
-        label="Filled Darker"
-        value={value}
-        onChange={(_e, v) => setValue(v)}
-        variant="filled-darker"
-        style={{ width: 200 }}
-      >
-        <DropdownItem value={100}>Option 1</DropdownItem>
-        <DropdownItem value={200}>Option 2</DropdownItem>
-        <DropdownItem value={300}>Option 3</DropdownItem>
-      </Dropdown>
+      <div style={{ width: 200 }}>
+        <Dropdown
+          dropdownStyle={{ width: "200px" }}
+          label="Filled Darker"
+          value={value}
+          onChange={(_e, v) => setValue(v)}
+          style="filled-darker"
+        >
+          <DropdownItem value={100}>Option 1</DropdownItem>
+          <DropdownItem value={200}>Option 2</DropdownItem>
+          <DropdownItem value={300}>Option 3</DropdownItem>
+        </Dropdown>
+      </div>
 
-      <Dropdown
-        label="Filled Lighter"
-        value={value}
-        onChange={(_e, v) => setValue(v)}
-        variant="filled-lighter"
-        style={{ width: 200 }}
-      >
-        <DropdownItem value={100}>Option 1</DropdownItem>
-        <DropdownItem value={200}>Option 2</DropdownItem>
-        <DropdownItem value={300}>Option 3</DropdownItem>
-      </Dropdown>
+      <div style={{ width: 200 }}>
+        <Dropdown
+          dropdownStyle={{ width: "200px" }}
+          label="Filled Lighter"
+          value={value}
+          onChange={(_e, v) => setValue(v)}
+          style="filled-lighter"
+        >
+          <DropdownItem value={100}>Option 1</DropdownItem>
+          <DropdownItem value={200}>Option 2</DropdownItem>
+          <DropdownItem value={300}>Option 3</DropdownItem>
+        </Dropdown>
+      </div>
     </div>
   );
 };
@@ -190,11 +198,11 @@ export const WithStates = (args: any) => {
   return (
     <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Default State"
         value={value}
         onChange={(_e, v) => setValue(v)}
         state="default"
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -202,11 +210,11 @@ export const WithStates = (args: any) => {
       </Dropdown>
 
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Hovered State"
         value={value}
         onChange={(_e, v) => setValue(v)}
         state="hovered"
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -214,11 +222,11 @@ export const WithStates = (args: any) => {
       </Dropdown>
 
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Focused State"
         value={value}
         onChange={(_e, v) => setValue(v)}
         state="focused"
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -226,11 +234,11 @@ export const WithStates = (args: any) => {
       </Dropdown>
 
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Pressed State"
         value={value}
         onChange={(_e, v) => setValue(v)}
         state="pressed"
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -238,11 +246,11 @@ export const WithStates = (args: any) => {
       </Dropdown>
 
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Read-only State"
         value={value}
         onChange={(_e, v) => setValue(v)}
         state="read-only"
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -250,11 +258,11 @@ export const WithStates = (args: any) => {
       </Dropdown>
 
       <Dropdown
+        dropdownStyle={{ width: "200px" }}
         label="Disabled State"
         value={value}
         onChange={(_e, v) => setValue(v)}
         state="disabled"
-        style={{ width: 200 }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -274,8 +282,8 @@ export const WithError = (args: any) => {
         value={value}
         onChange={(_e, v) => setValue(v)}
         error={false}
-        style={{ width: 200 }}
         placeholder="Select an option"
+        dropdownStyle={{ width: "200px" }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -287,8 +295,8 @@ export const WithError = (args: any) => {
         value={value}
         onChange={(_e, v) => setValue(v)}
         error={true}
-        style={{ width: 200 }}
         placeholder="Select an option"
+        dropdownStyle={{ width: "200px" }}
       >
         <DropdownItem value={100}>Option 1</DropdownItem>
         <DropdownItem value={200}>Option 2</DropdownItem>
@@ -307,7 +315,7 @@ export const RTL = withRtl(() => {
       value={value}
       onChange={(_e, v) => setValue(v)}
       placeholder="عنوان"
-      style={{ width: 200 }}
+      dropdownStyle={{ width: "200px" }}
     >
       <DropdownItem value={1}>خيار ١</DropdownItem>
       <DropdownItem value={2}>خيار ٢</DropdownItem>

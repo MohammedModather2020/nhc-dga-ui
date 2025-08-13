@@ -18,10 +18,10 @@ type State =
   | "focused"
   | "read-only"
   | "disabled";
-type Variant = "default" | "filled" | "filled-darker" | "filled-lighter";
+type Style = "default" | "filled" | "filled-darker" | "filled-lighter";
 
 interface DGA_DropdownProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "style"> {
   label?: React.ReactNode;
   className?: string;
   name?: string;
@@ -30,7 +30,8 @@ interface DGA_DropdownProps
   state?: State;
   error?: boolean;
   filled?: boolean;
-  variant?: Variant;
+  style?: Style;
+  dropdownStyle?: React.CSSProperties;
   value?: any;
   valueDisplay?: any;
   onChange?: (e: React.SyntheticEvent, value: any) => void;
@@ -39,24 +40,28 @@ interface DGA_DropdownProps
   children: (React.ReactElement<typeof DropdownItem> | null | false)[];
 }
 
-const Dropdown: React.FC<DGA_DropdownProps> = ({
-  label,
-  size,
-  state,
-  placeholder,
-  error,
-  filled,
-  variant,
-  onChange,
-  onOpen,
-  value,
-  valueDisplay,
-  children,
-  name,
-  multiple,
-  ...props
-}) => {
+const Dropdown: React.FC<DGA_DropdownProps> = (props) => {
   const theme = useTheme();
+
+  const {
+    state,
+    error,
+    filled,
+    style: styleVariant,
+    onChange,
+    children,
+    onOpen,
+    className,
+    dropdownStyle,
+    label,
+    placeholder,
+    value,
+    valueDisplay,
+    multiple,
+    name,
+    size,
+    ...otherProps
+  } = props;
   const [selectedOptionText, setSelectedOptionText] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [itemsPosition, setItemsPosition] = React.useState({
@@ -84,16 +89,16 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
   let animationColor = error ? theme.palette.error[700] : theme.textColor;
   let shadowFocus = theme.elevation.shadows.md;
 
-  // Apply variant styling
-  if (variant === "filled") {
+  // Apply style styling
+  if (styleVariant === "filled") {
     backgroundColor = theme.palette.neutral[50];
     border = `1px solid ${theme.palette.neutral[300]}`;
   }
-  if (variant === "filled-darker") {
+  if (styleVariant === "filled-darker") {
     backgroundColor = theme.palette.neutral[100];
     border = `1px solid ${theme.palette.neutral[400]}`;
   }
-  if (variant === "filled-lighter") {
+  if (styleVariant === "filled-lighter") {
     backgroundColor = theme.palette.neutral[25];
     border = `1px solid ${theme.palette.neutral[200]}`;
   }
@@ -258,9 +263,10 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
 
   return (
     <StyledComponent
+      style={dropdownStyle}
       $theme={theme}
-      className={mergeStrings("dgaui dgaui_dropdown", props.className)}
-      {...props}
+      className={mergeStrings("dgaui dgaui_dropdown", className)}
+      {...otherProps}
     >
       {label && (
         <label
