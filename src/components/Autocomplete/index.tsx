@@ -185,24 +185,6 @@ const Autocomplete = <T,>({
     }
   };
 
-  // Always onBlur in single select only, set the input value to the selected option label if exists
-  const onBlurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (multiple) {
-      return;
-    }
-
-    if (selectedOptions && selectedOptions.length > 0) {
-      const optionLabel = getLocalOptionLabel(selectedOptions[0]);
-      setInputValue(optionLabel);
-    } else {
-      setInputValue("");
-    }
-
-    setTimeout(() => {
-      setInputValueSearch("");
-    }, 100);
-  };
-
   // Popover position
   React.useEffect(() => {
     if (ref.current) {
@@ -322,7 +304,6 @@ const Autocomplete = <T,>({
             setInputValue(e.target.value);
             setInputValueSearch(e.target.value);
           }}
-          onBlur={onBlurHandler}
         />
       </StyledDiv>
 
