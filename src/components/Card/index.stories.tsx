@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Card from ".";
-import featuredIcon from "./featuredIcon.svg";
+import featuredIcon from "../../assets/images/featuredIcon.svg";
 import withRtl from "../../lib/RTL";
 import Button from "../Button";
 import { useArgs } from "storybook/internal/preview-api";
