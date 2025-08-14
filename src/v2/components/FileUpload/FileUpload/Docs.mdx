@@ -1,0 +1,61 @@
+import { Meta, Source, Story, Controls, Canvas } from "@storybook/blocks";
+import * as Stories from "../File.stories";
+
+# FileUpload
+
+<Meta of={Stories} />
+
+<Story of={Stories.Default} />
+
+<Controls of={Stories.Default} />
+
+<Source of={Stories.Default} />
+
+
+### RTL
+```
+export const Rtl = withRtl((args: any) => {
+  const [files, setFiles] = React.useState<FilesListItem[]>([
+    {
+      id: "1",
+      status: "loading",
+      file: new File([], "ملف.png", { type: "image/png" }),
+    },
+    {
+      id: "2",
+      status: "success",
+      file: new File([], "ملف تم رفعه بنجاح.png", {
+        type: "image/png",
+      }),
+    },
+    {
+      id: "3",
+      status: "error",
+      helperText: "حدث خطأ اثناء رفع الملف",
+      file: new File([], "ملف لم يتم رفعه.png", { type: "image/png" }),
+    },
+  ]);
+
+  const onDrophandler = (fileList: FilesListItem[]) => {
+    setFiles((prevState) => prevState.concat(fileList));
+  };
+
+  const onDeleteHandler = (file: FilesListItem) => {
+    setFiles((prevState) =>
+      prevState.filter((currentFile) => currentFile.id !== file.id)
+    );
+  };
+
+  return (
+    <FileUpload
+      title="اسحب و أفلت الملفات هنا للرفع"
+      helperText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجا بايت، وتشمل تنسيقات الملفات المدعومة .jpg، و.png، و.pdf."
+      uploadText="تصفح الملفات"
+      onDrop={onDrophandler}
+      onFileListItemDeleted={onDeleteHandler}
+      filesList={files}
+      {...args}
+    />
+  );
+});
+```
