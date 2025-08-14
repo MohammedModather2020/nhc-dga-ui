@@ -12,7 +12,7 @@ export const sizes = {
 interface DGA_TagProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "style"> {
   children: React.ReactNode;
-  style: "neutral" | "success" | "error" | "warning" | "info" | "onColor";
+  style?: "neutral" | "success" | "error" | "warning" | "info" | "onColor";
   size?: "xsmall" | "small" | "medium";
   outLine?: boolean;
   rounded?: boolean;
