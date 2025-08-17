@@ -21,9 +21,9 @@ export const Horizontal = () => {
       onChange={(_e, selectedValue) => setValue(selectedValue)}
       value={value}
     >
-      <Radio value={"x"} label="Radio 1" />
-      <Radio value={"y"} label="Radio 2" />
-      <Radio value={"z"} label="Radio 3" />
+      <Radio style="primary" value={"x"} label="Radio 1" />
+      <Radio style="primary" value={"y"} label="Radio 2" />
+      <Radio style="primary" value={"z"} label="Radio 3" />
     </RadioGroup>
   );
 };

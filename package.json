@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "rm -rf dist && rollup -c --bundleConfigAsCjs && cat types/types.d.ts >> dist/index.d.ts",
+    "build": "rm -rf dist && rm -rf v2 && rollup -c --bundleConfigAsCjs",
     "release": "npm run build && npm publish",
     "storybook": "storybook dev -p 6006"
   },

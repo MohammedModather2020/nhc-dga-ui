@@ -78,7 +78,7 @@ export const CustomSubmitButton = (args: any) => {
   return (
     <FileUpload
       {...args}
-      submitButton={<Button color="secondary" variant="solid">Custom submit button</Button>}
+      submitButton={<Button color="secondary">Custom submit button</Button>}
     />
   );
 };

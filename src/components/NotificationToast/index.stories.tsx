@@ -1,129 +1,189 @@
-import { Meta } from "@storybook/react";
-import InlineAlert from ".";
-import Button from "../Button";
-import toast from ".";
-import "./index.css";
+import { Meta } from '@storybook/react';
+
+// custom-deps
+import toast from '.';
+import InlineAlert from '.';
+import Button from '../Button';
+
+// styles
+import './index.css';
 
 const meta = {
-  title: "DGAUI/toast",
-  argTypes: {
-    position: {
-      options: [
-        "top-left",
-        "top-center",
-        "top-right",
-        "bottom-left",
-        "bottom-center",
-        "bottom-right",
-      ],
-      control: { type: "select" },
-    },
-    duration: {
-      control: { type: "text" },
-    },
-  },
-  args: {
-    duration: "3000",
-  },
+	title: 'DGAUI/NotificationToast',
+	argTypes: {
+		position: {
+			options: [
+				'top-left',
+				'top-center',
+				'top-right',
+				'bottom-left',
+				'bottom-center',
+				'bottom-right',
+			],
+			control: { type: 'select' },
+		},
+		duration: {
+			control: { type: 'text' },
+		},
+		type: {
+			options: ['neutral', 'warning', 'success', 'critical', 'info'],
+			control: { type: 'select' },
+			defaultValue: 'neutral',
+		},
+		closeButton: {
+			control: { type: 'boolean' },
+			defaultValue: true,
+		},
+		rtl: {
+			control: { type: 'boolean' },
+			defaultValue: false,
+		},
+		leadText: {
+			control: { type: 'text' },
+		},
+		helpText: {
+			control: { type: 'text' },
+		},
+	},
+	args: {
+		duration: '3000',
+		leadText: 'Test title',
+		helpText:
+			'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+		actions: (
+			<>
+				<Button style='secondary-outline' color='neutral'>
+					Button
+				</Button>
+				<Button style='transparent' color='neutral'>
+					Button
+				</Button>
+			</>
+		),
+		rtl: false,
+		type: 'neutral',
+		closeButton: true,
+		position: 'top-left',
+	},
 } satisfies Meta<typeof InlineAlert>;
 
 export default meta;
 
 export const Default = (args: any) => {
-  return (
-    <div className="margin">
-      <div>
-        <Button
-          onClick={() =>
-            toast({
-              rtl: true,
-              duration: args.duration,
-              position: "top-left",
-              title: "Test title",
-              description:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-              actionButtons: <Button variant="outlined">ok</Button>,
-              color: "error",
-            })
-          }
-        >
-          top-left
-        </Button>
-        <Button
-          onClick={() =>
-            toast({
-              duration: args.duration,
-              position: "top-center",
-              title: "Test title",
-            })
-          }
-        >
-          top-center
-        </Button>
-        <Button
-          onClick={() =>
-            toast({
-              duration: args.duration,
-              position: "top-right",
-              title: "Test title",
-            })
-          }
-        >
-          top-right
-        </Button>
-      </div>
+	return (
+		<div className='margin'>
+			<div>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: args.rtl,
+							duration: args.duration,
+							position: 'top-left',
+							leadText: args.leadText,
+							helpText: args.helpText,
+							actions: args.actions,
+							type: args.type,
+							closeButton: args.closeButton,
+						})
+					}>
+					top-left
+				</Button>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: args.rtl,
+							duration: args.duration,
+							position: 'top-center',
+							leadText: args.leadText,
+							helpText: args.helpText,
+							actions: args.actions,
+							type: args.type,
+							closeButton: args.closeButton,
+						})
+					}>
+					top-center
+				</Button>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: args.rtl,
+							duration: args.duration,
+							position: 'top-right',
+							leadText: args.leadText,
+							helpText: args.helpText,
+							actions: args.actions,
+							type: args.type,
+							closeButton: args.closeButton,
+						})
+					}>
+					top-right
+				</Button>
+			</div>
 
-      <div>
-        <Button
-          onClick={() =>
-            toast({
-              duration: args.duration,
-              position: "bottom-left",
-              title: "Test title",
-            })
-          }
-        >
-          bottom-left
-        </Button>
-        <Button
-          onClick={() =>
-            toast({
-              duration: args.duration,
-              position: "bottom-center",
-              title: "Test title",
-            })
-          }
-        >
-          bottom-center
-        </Button>
-        <Button
-          onClick={() =>
-            toast({
-              duration: args.duration,
-              position: "bottom-right",
-              title: "Test title",
-            })
-          }
-        >
-          bottom-right
-        </Button>
-      </div>
-      <div>
-        <Button
-          onClick={() =>
-            toast({
-              rtl: true,
-              duration: args.duration,
-              position: "bottom-right",
-              color: "error",
-              background: "color",
-              title: "عنوان النص",
-            })
-          }
-        >
-          Rtl bottom-right
-        </Button>
-      </div>
-    </div>
-  );
+			<div>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: args.rtl,
+							duration: args.duration,
+							position: 'bottom-left',
+							leadText: args.leadText,
+							helpText: args.helpText,
+							actions: args.actions,
+							type: args.type,
+							closeButton: args.closeButton,
+						})
+					}>
+					bottom-left
+				</Button>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: args.rtl,
+							duration: args.duration,
+							position: 'bottom-center',
+							leadText: args.leadText,
+							helpText: args.helpText,
+							actions: args.actions,
+							type: args.type,
+							closeButton: args.closeButton,
+						})
+					}>
+					bottom-center
+				</Button>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: args.rtl,
+							duration: args.duration,
+							position: 'bottom-right',
+							leadText: args.leadText,
+							helpText: args.helpText,
+							actions: args.actions,
+							type: args.type,
+							closeButton: args.closeButton,
+						})
+					}>
+					bottom-right
+				</Button>
+			</div>
+			<div>
+				<Button
+					onClick={() =>
+						toast({
+							rtl: true,
+							duration: args.duration,
+							position: 'bottom-right',
+							type: args.type,
+							leadText: 'عنوان النص',
+							helpText: 'النص هو هنا للتوضيح',
+							actions: args.actions,
+							closeButton: args.closeButton,
+						})
+					}>
+					Rtl bottom-right
+				</Button>
+			</div>
+		</div>
+	);
 };

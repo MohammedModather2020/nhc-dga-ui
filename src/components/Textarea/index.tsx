@@ -3,18 +3,26 @@ import styled from "styled-components";
 import useTheme from "../../lib/useTheme";
 import { mergeStrings } from "../../lib/helpers";
 
-type Variant = "default" | "darker" | "lighter";
+type Style = "default" | "filledDarker" | "filledLighter";
 
 interface DGA_TextareaProps
-  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
+  extends Omit<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    "size" | "style"
+  > {
   label: React.ReactNode;
-  variant?: Variant;
+  style?: Style;
   error?: boolean;
+  scrollBar?: boolean;
+  resize?: boolean;
   ref?: React.Ref<HTMLTextAreaElement>;
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, DGA_TextareaProps>(
-  ({ label, variant, error, ...props }, ref) => {
+  (
+    { label, style, error, scrollBar = false, resize = true, ...props },
+    ref
+  ) => {
     const theme = useTheme();
 
     // Default
@@ -30,7 +38,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, DGA_TextareaProps>(
     let animationColor = error ? theme.palette.error[700] : theme.textColor;
     let shadowFocus = theme.elevation.shadows.md;
 
-    if (variant === "darker") {
+    if (style === "filledDarker") {
       backgroundColor = theme.palette.neutral[100];
     }
 
@@ -67,6 +75,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, DGA_TextareaProps>(
             borderHovered,
             backgroundColor,
             shadowFocus,
+            scrollBar,
+            resize,
           }}
           {...props}
           ref={ref}
@@ -89,6 +99,8 @@ const StyledComponent = styled.textarea<{
     placeholderFontColor: string;
     borderHovered: string;
     backgroundColor: string;
+    scrollBar?: boolean;
+    resize?: boolean;
   };
 }>`
   outline: none;
@@ -102,6 +114,9 @@ const StyledComponent = styled.textarea<{
   border: ${(props) => props.$customStyle.border};
   background-color: ${(props) => props.$customStyle.backgroundColor};
   box-sizing: border-box;
+
+  resize: ${(p) => (p.$customStyle.resize ? "both" : "none")};
+  overflow-y: ${(p) => (p.$customStyle.scrollBar ? "scroll" : "auto")};
 
   &::placeholder {
     color: ${(props) => props.$customStyle.placeholderFontColor};

@@ -40,8 +40,8 @@ const ProgressIndicator: React.FC<DGA_ProgressIndicatorProps> = ({
           index < activeStepIndex
             ? "completed"
             : index === activeStepIndex
-              ? "active"
-              : "upComing";
+            ? "active"
+            : "upComing";
 
         return (
           <div

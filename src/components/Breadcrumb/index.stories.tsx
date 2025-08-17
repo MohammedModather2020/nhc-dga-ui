@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Breadcrumb from ".";
 import withRtl from "../../lib/RTL";
-import React from "react";
 
 const meta = {
   title: "DGAUI/Breadcrumb",

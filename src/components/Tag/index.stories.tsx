@@ -8,16 +8,12 @@ const meta = {
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys(defaultTheme.palette),
-      control: { type: "select" },
-    },
     size: {
       options: Object.keys(sizes),
       control: { type: "radio" },
     },
-    variant: {
-      options: ["contained", "outlined"],
+    style: {
+      options: ["neutral", "success", "error", "warning", "info", "onColor"],
       control: { type: "radio" },
     },
     rounded: {
@@ -25,10 +21,11 @@ const meta = {
     },
   },
   args: {
-    color: "neutral",
-    size: "large",
-    variant: "contained",
+    size: "medium",
+    style: "neutral",
     rounded: false,
+    leadIcon: "+",
+    trailIcon: "-",
   },
 } satisfies Meta<typeof Tag>;
 
@@ -37,8 +34,20 @@ export default meta;
 // Stories
 type Story = StoryObj<typeof Tag>;
 
-export const Default: Story = {
-  args: {
-    children: "Label",
-  },
+export const Default = (args: any) => {
+  if (args.style == "onColor") {
+    return (
+      <div
+        style={{
+          backgroundColor: "#074D31",
+          padding: 56,
+          minWidth: 400,
+          textAlign: "center",
+        }}
+      >
+        <Tag {...args}>Label</Tag>
+      </div>
+    );
+  }
+  return <Tag {...args}>Label</Tag>;
 };

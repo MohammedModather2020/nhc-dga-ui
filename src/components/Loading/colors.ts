@@ -1,11 +1,13 @@
-const colors = (them: Theme): { [k in ColorName]: string } => ({
-  neutral: them.textColor,
+import { COLORS } from "../../lib/constants";
+
+const colors = (
+  them: Theme
+): {
+  [k in "primary" | "neutral" | "on-color"]: string;
+} => ({
   primary: them.palette.primary.main,
-  secondary: them.palette.secondary.main,
-  error: them.palette.error.main,
-  warning: them.palette.warning.main,
-  success: them.palette.success.main,
-  info: them.palette.info.main,
+  neutral: them.textColor,
+  "on-color": them.textOnColor || COLORS.white,
 });
 
 export default colors;

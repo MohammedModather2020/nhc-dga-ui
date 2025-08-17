@@ -91,7 +91,7 @@ const DropZone: React.FC<DGA_FileUploadProps> = ({
         <span className="helperText">{helperText}</span>
         {submitButton && submitButton}
         {!submitButton && (
-          <Button color="neutral" variant="solid" disabled={porps.disabled}>
+          <Button color="neutral" style="neutral" disabled={porps.disabled}>
             {uploadText ?? "Browse Files"}
           </Button>
         )}

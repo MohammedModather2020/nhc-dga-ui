@@ -46,14 +46,10 @@ export const WithFooter = (args: any) => {
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.`}
         footerStartButtons={[
           <Button>Button 1</Button>,
-          <Button variant="outlined">Button 2</Button>,
+          <Button style="neutral">Button 2</Button>,
         ]}
         footerEndButtons={[
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={() => setOpen(false)}
-          >
+          <Button style="neutral" color="error" onClick={() => setOpen(false)}>
             Close
           </Button>,
         ]}
@@ -79,11 +75,11 @@ export const Rtl = withRtl(() => {
         onClose={() => setOpen(false)}
         footerStartButtons={[
           <Button>عنوان ١</Button>,
-          <Button variant="outlined">عنوان ٢</Button>,
+          <Button style="secondary-outline">عنوان ٢</Button>,
         ]}
         footerEndButtons={[
           <Button
-            variant="outlined"
+            style="secondary-outline"
             color="error"
             onClick={() => setOpen(false)}
           >

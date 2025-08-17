@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useTheme from "../../lib/useTheme";
 import { mergeStrings } from "../../lib/helpers";
 import arrowDownIcon from "../../assets/images/chevron.png";
-import arrowDownIconGray from "./chevronGray.png";
+import arrowDownIconGray from "../../assets/images/chevronGray.png";
 import DropdownItem, { DGA_DropdownItemProps } from "./DropdownItem";
 
 export const sizes = {
@@ -11,18 +11,27 @@ export const sizes = {
   large: { w: 320, h: 40, p: 16, f: 16 },
 };
 
-type Variant = "default" | "darker" | "lighter";
+type State =
+  | "default"
+  | "hovered"
+  | "pressed"
+  | "focused"
+  | "read-only"
+  | "disabled";
+type Style = "default" | "filled" | "filled-darker" | "filled-lighter";
 
 interface DGA_DropdownProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "style"> {
   label?: React.ReactNode;
   className?: string;
   name?: string;
   placeholder?: string;
   size?: "large" | "medium";
-  variant?: Variant;
+  state?: State;
   error?: boolean;
-  disabled?: boolean;
+  filled?: boolean;
+  style?: Style;
+  dropdownStyle?: React.CSSProperties;
   value?: any;
   valueDisplay?: any;
   onChange?: (e: React.SyntheticEvent, value: any) => void;
@@ -31,22 +40,28 @@ interface DGA_DropdownProps
   children: (React.ReactElement<typeof DropdownItem> | null | false)[];
 }
 
-const Dropdown: React.FC<DGA_DropdownProps> = ({
-  label,
-  size,
-  variant,
-  placeholder,
-  error,
-  onChange,
-  onOpen,
-  value,
-  valueDisplay,
-  children,
-  name,
-  multiple,
-  ...props
-}) => {
+const Dropdown: React.FC<DGA_DropdownProps> = (props) => {
   const theme = useTheme();
+
+  const {
+    state,
+    error,
+    filled,
+    style: styleVariant,
+    onChange,
+    children,
+    onOpen,
+    className,
+    dropdownStyle,
+    label,
+    placeholder,
+    value,
+    valueDisplay,
+    multiple,
+    name,
+    size,
+    ...otherProps
+  } = props;
   const [selectedOptionText, setSelectedOptionText] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [itemsPosition, setItemsPosition] = React.useState({
@@ -58,7 +73,7 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
 
   const sizeResult: "large" | "medium" = size ?? "large";
 
-  // Default
+  // Default styling
   let fontColor = theme.textColor;
   let placeholderFontColor = theme.palette.neutral[500];
   let border = `1px solid ${
@@ -74,20 +89,58 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
   let animationColor = error ? theme.palette.error[700] : theme.textColor;
   let shadowFocus = theme.elevation.shadows.md;
 
-  if (variant === "lighter") {
-    backgroundColor = theme.palette.neutral[25];
-    border = "1px solid transparent";
-    borderHovered = `1px solid ${theme.palette.neutral[400]}`;
-    borderFocused = `1px solid ${theme.palette.neutral[400]}`;
+  // Apply style styling
+  if (styleVariant === "filled") {
+    backgroundColor = theme.palette.neutral[50];
+    border = `1px solid ${theme.palette.neutral[300]}`;
   }
-  if (variant === "darker") {
+  if (styleVariant === "filled-darker") {
     backgroundColor = theme.palette.neutral[100];
+    border = `1px solid ${theme.palette.neutral[400]}`;
+  }
+  if (styleVariant === "filled-lighter") {
+    backgroundColor = theme.palette.neutral[25];
+    border = `1px solid ${theme.palette.neutral[200]}`;
   }
 
-  if (props.disabled) {
+  // Apply filled styling
+  if (filled) {
+    backgroundColor = theme.palette.neutral[50];
+    border = `1px solid ${theme.palette.neutral[300]}`;
+  }
+
+  // Apply state styling
+  if (state === "disabled") {
     fontColor = theme.palette.neutral[400];
     border = `1px solid ${theme.palette.neutral[200]}`;
     borderHovered = `1px solid ${theme.palette.neutral[200]}`;
+    borderFocused = `1px solid ${theme.palette.neutral[200]}`;
+    backgroundColor = theme.palette.neutral[50];
+  }
+  if (state === "read-only") {
+    backgroundColor = theme.palette.neutral[25];
+    border = `1px solid ${theme.palette.neutral[300]}`;
+    borderHovered = `1px solid ${theme.palette.neutral[300]}`;
+    borderFocused = `1px solid ${theme.palette.neutral[300]}`;
+  }
+  if (state === "hovered") {
+    border = borderHovered;
+  }
+  if (state === "focused") {
+    border = borderFocused;
+    shadowFocus = theme.elevation.shadows.md;
+  }
+  if (state === "pressed") {
+    backgroundColor = theme.palette.neutral[100];
+    border = borderFocused;
+  }
+
+  // Error state overrides
+  if (error) {
+    border = `1px solid ${theme.palette.error[700]}`;
+    borderHovered = `1px solid ${theme.palette.error[700]}`;
+    borderFocused = `1px solid ${theme.palette.error[700]}`;
+    animationColor = theme.palette.error[700];
   }
 
   const calcPosition = () => {
@@ -210,20 +263,35 @@ const Dropdown: React.FC<DGA_DropdownProps> = ({
 
   return (
     <StyledComponent
+      style={dropdownStyle}
       $theme={theme}
-      className={mergeStrings("dgaui dgaui_dropdown", props.className)}
-      {...props}
+      className={mergeStrings("dgaui dgaui_dropdown", className)}
+      {...otherProps}
     >
       {label && (
-        <label className={props.disabled ? "disabled" : undefined}>
+        <label
+          className={
+            state === "disabled"
+              ? "disabled"
+              : state === "read-only"
+              ? "readonly"
+              : undefined
+          }
+        >
           {label}
         </label>
       )}
       <StyledDiv
         ref={ref}
-        onClick={() => setOpen((prevState) => !prevState)}
+        onClick={() => {
+          if (state !== "disabled" && state !== "read-only") {
+            setOpen((prevState) => !prevState);
+          }
+        }}
         className={
-          "dgaui_dropdownContainer " + (props.disabled ? "disabled" : "")
+          "dgaui_dropdownContainer " +
+          (state === "disabled" ? "disabled" : "") +
+          (state === "read-only" ? " readonly" : "")
         }
         $customStyle={{
           theme,
@@ -275,6 +343,9 @@ const StyledComponent = styled.div<{ $theme: Theme }>`
     margin-bottom: 8px;
     &.disabled {
       color: #9da4ae;
+    }
+    &.readonly {
+      color: ${(p) => p.$theme.palette.neutral[600]};
     }
   }
 
@@ -421,6 +492,12 @@ const StyledDiv = styled.div<{
     border: ${(props) => props.$customStyle.borderHovered};
   }
   &.disabled {
+    pointer-events: none;
+    &:before {
+      content: url(${arrowDownIconGray});
+    }
+  }
+  &.readonly {
     pointer-events: none;
     &:before {
       content: url(${arrowDownIconGray});

@@ -12,13 +12,13 @@ interface DGA_CardProps
   description?: React.ReactNode;
   icon?: React.ReactNode;
   type?: "default" | "expandable" | "selectable";
-  effect?: "withShadow" | "noShadow" | "strok";
+  state?: "default" | "disabled" | "focused" | "hover";
+  effect?: "withShadow" | "noShadow" | "stroke";
   expandableContent?: React.ReactNode;
   actionsButtons?: React.ReactElement<typeof Button>[];
+  expanded?: boolean;
   selected?: boolean;
   onChange?: (event: React.SyntheticEvent, value: boolean) => void;
-  defaultExpanded?: boolean;
-  disabled?: boolean;
 }
 
 const Card: React.FC<DGA_CardProps> = ({
@@ -26,19 +26,22 @@ const Card: React.FC<DGA_CardProps> = ({
   description,
   icon,
   type = "default",
+  state = "default",
   effect = "withShadow",
   expandableContent,
   actionsButtons,
   selected,
+  expanded,
   onChange,
-  defaultExpanded,
-  disabled,
   ...props
 }) => {
   const theme = useTheme();
-  const [expanded, setExpanded] = React.useState(defaultExpanded);
+  const [internalExpanded, setInternalExpanded] = React.useState(false);
   const [contentHeight, setContentHeight] = React.useState(0);
   const contentRef = React.useRef<HTMLDivElement>(null);
+
+  // Use expanded prop if provided, otherwise use internal state
+  const isExpanded = expanded !== undefined ? expanded : internalExpanded;
 
   const selectable = type === "selectable";
   const expandable = type === "expandable";
@@ -51,11 +54,18 @@ const Card: React.FC<DGA_CardProps> = ({
     }
   }, [expandable, contentRef.current?.clientHeight]);
 
+  const handleExpandToggle = () => {
+    if (expanded === undefined) {
+      // Only use internal state if expanded prop is not controlled
+      setInternalExpanded((prevState: boolean) => !prevState);
+    }
+  };
+
   return (
     <StyledComponent
       className={mergeStrings(
         "dgaui dgaui_card" +
-          (disabled ? " disabled" : "") +
+          (state === "disabled" ? " disabled" : "") +
           (selectable ? " selectable" : ""),
         props.className
       )}
@@ -63,7 +73,8 @@ const Card: React.FC<DGA_CardProps> = ({
       $pointerEvents={pointerEvents}
       $effect={effect}
       $contentHeight={contentHeight}
-      $expanded={expanded}
+      $expanded={isExpanded}
+      $state={state}
       {...props}
       tabIndex={0}
       onClick={(e) => {
@@ -79,14 +90,19 @@ const Card: React.FC<DGA_CardProps> = ({
               className="checkboxContainer"
               onClick={(e) => e.stopPropagation()}
             >
-              <Checkbox value={selected} onChange={onChange} size="medium" />
+              <Checkbox
+                value={selected}
+                onChange={onChange}
+                size="medium"
+                disabled={state === "disabled"}
+              />
             </div>
           )}
         </div>
       )}
       {title && <div className="titleContainer">{title}</div>}
       {description && <div className="descriptionContainer">{description}</div>}
-      {!!actionsButtons && actionsButtons.length > 0 && (
+      {!!actionsButtons && actionsButtons.length > 0 && type === "default" && (
         <div
           className="actionsButtonsContainer"
           onClick={(e) => e.stopPropagation()}
@@ -99,21 +115,21 @@ const Card: React.FC<DGA_CardProps> = ({
           <div className="caretButtonContainer">
             <img
               src={arrowDownImage}
-              onClick={() => setExpanded((prevState) => !prevState)}
+              onClick={handleExpandToggle}
               style={{
                 transition: "all 0.2s",
-                transform: expanded ? "rotateZ(-180deg)" : "none",
+                transform: isExpanded ? "rotateZ(-180deg)" : "none",
               }}
             />
           </div>
           <div
             className="expandableContentContainer"
-            style={{ height: expanded ? contentHeight : 0 }}
+            style={{ height: isExpanded ? contentHeight : 0 }}
           >
             <div
               className="expandableContent"
               ref={contentRef}
-              style={{ visibility: expanded ? "visible" : "hidden" }}
+              style={{ visibility: isExpanded ? "visible" : "hidden" }}
             >
               {expandableContent}
             </div>
@@ -127,9 +143,10 @@ const Card: React.FC<DGA_CardProps> = ({
 const StyledComponent = styled.div<{
   $theme: Theme;
   $pointerEvents: string;
-  $effect?: "withShadow" | "noShadow" | "strok";
+  $effect?: "withShadow" | "noShadow" | "stroke";
   $contentHeight: number;
   $expanded?: boolean;
+  $state?: "default" | "disabled" | "focused" | "hover";
 }>`
   direction: ${(p) => p.$theme.direction};
   /* pointer-events: ${(p) => p.$pointerEvents}; */
@@ -141,17 +158,31 @@ const StyledComponent = styled.div<{
   background-color: #fff;
   text-align: start;
   overflow: hidden;
-  color: ${(p) => p.$theme.palette.neutral[800]};
+  color: ${(p) =>
+    p.$state === "disabled"
+      ? p.$theme.palette.neutral[400]
+      : p.$theme.palette.neutral[800]};
   border: 2px solid transparent;
+
+  /* Apply background color based on state prop */
+  background-color: ${(p) => {
+    if (p.$state === "hover") return p.$theme.palette.neutral[50];
+    return "#fff";
+  }};
+
+  /* Apply border color based on state prop */
+  ${(p) =>
+    p.$state === "focused" ? `border: 2px solid ${p.$theme.textColor};` : ""}
 
   ${(p) => (p.$effect === "withShadow" ? p.$theme.elevation.shadows.md : "")};
   ${(p) =>
-    p.$effect === "strok"
+    p.$effect === "stroke"
       ? "border: 1px solid " + p.$theme.palette.neutral[300]
       : ""};
 
+  /* CSS hover and focus states - work when state prop is default */
   ${(p) =>
-    p.$pointerEvents === "all"
+    p.$pointerEvents === "all" && p.$state !== "disabled"
       ? css`
           &:hover {
             background-color: ${p.$theme.palette.neutral[50]};
@@ -167,8 +198,17 @@ const StyledComponent = styled.div<{
   }
   &.disabled {
     pointer-events: none;
-    filter: grayscale(1);
     background-color: ${(p) => p.$theme.palette.neutral[200]};
+
+    .iconContainer {
+      opacity: 0.5;
+      filter: grayscale(1);
+    }
+
+    .checkboxContainer {
+      opacity: 0.5;
+      filter: grayscale(1);
+    }
   }
 
   .cardHeader {

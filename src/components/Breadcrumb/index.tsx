@@ -4,7 +4,7 @@ import { mergeStrings } from "../../lib/helpers";
 import useTheme from "../../lib/useTheme";
 import arrowToRight from "../../assets/images/arrow-to-right.png";
 import arrowToLeft from "../../assets/images/arrow-to-left.png";
-import DropdownItem from "../Dropdown/DropdownItem";
+import DropdownItem from "../../components/Dropdown/DropdownItem";
 
 type DGA_BreadcrumbProps = {
   items: {

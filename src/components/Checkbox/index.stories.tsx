@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Checkbox, { sizes } from ".";
-import withRtl from "../../lib/RTL";
-import defaultTheme from "../../lib/defaultTheme";
+
 import React from "react";
+import withRtl from "../../lib/RTL";
 
 const meta = {
   title: "DGAUI/Checkbox",
@@ -10,10 +10,6 @@ const meta = {
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys(defaultTheme.palette),
-      control: { type: "select" },
-    },
     size: {
       options: Object.keys(sizes),
       control: { type: "radio" },
@@ -36,8 +32,8 @@ const meta = {
     error: "",
     description: "",
     disabled: false,
-    color: "primary",
-    size: "large",
+    style: "primary",
+    size: "medium",
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -49,6 +45,27 @@ type Story = StoryObj<typeof Checkbox>;
 export const Default: Story = {
   args: {
     label: "Label",
+  },
+};
+
+export const Neutral: Story = {
+  args: {
+    label: "Label",
+    style: "neutral",
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    label: "Label",
+    style: "primary",
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    label: "Label",
+    indeterminate: true,
   },
 };
 

@@ -272,7 +272,7 @@ const Autocomplete = <T,>({
               selectedOptions &&
               selectedOptions?.length <= maxTagsToShow)) &&
           selectedOptions?.map((op, ind) => (
-            <Tag key={ind} rounded size={sizeResult} color="neutral">
+            <Tag key={ind} rounded size={"medium"} color="neutral">
               {getLocalOptionLabel(op)}
               <button
                 className="deleteIcon"
@@ -286,7 +286,7 @@ const Autocomplete = <T,>({
           maxTagsToShow > 0 &&
           selectedOptions &&
           selectedOptions?.length > maxTagsToShow && (
-            <Tag rounded size={sizeResult} color="neutral">
+            <Tag rounded size={"medium"} color="neutral">
               {maxTagsLabel || `${selectedOptions.length} selected`}
               <button className="deleteIcon" onClick={deleteAllTagshandler} />
             </Tag>

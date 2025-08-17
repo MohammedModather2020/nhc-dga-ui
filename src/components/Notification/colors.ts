@@ -1,8 +1,9 @@
-import neutral from "./icons/neutral.png";
+// assets
 import info from "./icons/info.png";
+import error from "./icons/error.png";
+import neutral from "./icons/neutral.png";
 import success from "./icons/success.png";
 import warning from "./icons/warning.png";
-import error from "./icons/error.png";
 
 export type NotificationColor = {
   bg: string;
@@ -11,14 +12,14 @@ export type NotificationColor = {
   icon: string;
 };
 
-const result = (them: Theme): { [k in ThemeColorName]: NotificationColor } => ({
+const result = (them: Theme): { [k in 'success' | 'info' | 'neutral' | 'warning' | 'critical']: NotificationColor } => ({
   neutral: {
     bg: them.palette.neutral[50],
     text: them.palette.neutral[700],
     border: them.textColor,
     icon: neutral,
   },
-  error: {
+  critical: {
     bg: them.palette.error[50],
     text: them.palette.error[700],
     border: them.palette.error[600],

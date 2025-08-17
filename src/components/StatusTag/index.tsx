@@ -5,43 +5,34 @@ import { mergeStrings } from "../../lib/helpers";
 import colors, { TagStatusColorName, TagStatusVariant } from "./colors";
 
 export const sizes = {
-  small: { h: 20, py: 8, f: 10 },
-  medium: { h: 24, py: 8, f: 12 },
-  large: { h: 32, py: 16, f: 16 },
+  xsmall: { w: 64, h: 20, py: 8, f: 10 },
+  small: { h: 24, py: 8, f: 12 },
+  medium: { h: 32, py: 16, f: 16 },
 };
 
-interface DGA_TagProps extends React.HTMLAttributes<HTMLDivElement> {
+interface DGA_TagProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "style"> {
   children: React.ReactNode;
-  variant?: TagStatusVariant;
-  size?: Size;
-  color?: TagStatusColorName;
+  status?: TagStatusVariant;
+  size?: "xsmall" | "small" | "medium";
+  style?: TagStatusColorName;
 }
 
-const tagStatusColorNames = [
-  "green",
-  "red",
-  "yellow",
-  "primary",
-  "secondary",
-  "neutral",
-  "error",
-  "warning",
-  "info",
-  "success",
-];
+const tagStatusColorNames = ["neutral", "green", "blue", "yellow", "red"];
 
 const StatusTag: React.FC<DGA_TagProps> = ({
   children,
-  variant,
+  status,
   size,
-  color,
+  style,
   ...props
 }) => {
   const theme = useTheme();
 
-  const colorNameResult: TagStatusColorName = color && tagStatusColorNames.includes(color) ? color : "neutral";
-  const sizeResult: Size = size ?? "medium";
-  const variantResult: TagStatusVariant = variant ? variant : "subtle";
+  const colorNameResult = style ?? "neutral";
+  const sizeResult = size ?? "medium";
+
+  const variantResult: TagStatusVariant = status ? status : "subtle";
   const tagColors = colors(theme);
 
   let backgroundColor = tagColors[colorNameResult][variantResult]?.bg;
@@ -50,7 +41,6 @@ const StatusTag: React.FC<DGA_TagProps> = ({
 
   return (
     <StyledComponent
-      {...props}
       className={mergeStrings("dgaui dgaui_statusTag", props.className)}
       $customStyle={{
         direction: theme.direction,
