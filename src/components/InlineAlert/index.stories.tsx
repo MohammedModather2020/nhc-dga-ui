@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
+
+// custom-deps
 import InlineAlert from ".";
-import defaultTheme from "../../lib/defaultTheme";
 import Button from "../Button";
 import withRtl from "../../lib/RTL";
 
@@ -10,21 +11,21 @@ const meta = {
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: ["neutral", "info", "success", "error", "warning"],
+    type: {
+      options: ["neutral", "info", "success", "destructive", "warning"],
       control: { type: "select" },
     },
     background: {
       options: ["white", "color"],
       control: { type: "radio" },
     },
-    hasClose: {
+    closeButton: {
       control: { type: "boolean" },
     },
   },
   args: {
-    color: "neutral",
-    hasClose: true,
+    type: "neutral",
+    closeButton: true,
     background: "white",
   },
 } satisfies Meta<typeof InlineAlert>;
@@ -36,16 +37,15 @@ type Story = StoryObj<typeof InlineAlert>;
 
 export const Default: Story = {
   args: {
-    title: "Notification/Alert messag",
-    description:
-      "When a Notification/Alert needs a further detailed explanation, it goes here.",
-    hasClose: true,
-    actionButtons: (
+    leadText: "Notification/Alert message",
+    helpText:  "When a Notification/Alert needs a further detailed explanation, it goes here.",
+    closeButton: true,
+    actions: (
       <>
-        <Button variant="solid" color="neutral" size="large">
+        <Button size="medium" style="subtle">
           Button1
         </Button>
-        <Button variant="outlined" color="neutral" size="large">
+        <Button size="medium" style="subtle">
           Button2
         </Button>
       </>
@@ -55,21 +55,21 @@ export const Default: Story = {
 
 export const Minimal: Story = {
   args: {
-    title: "Notification/Alert messag",
+    leadText: "Notification/Alert messag",
   },
 };
 
 export const Rtl = withRtl(() => (
   <InlineAlert
-    title="Notification/Alert messag"
-    description="When a Notification/Alert needs a further detailed explanation, it goes here."
-    hasClose
-    actionButtons={
+    leadText="Notification/Alert messag"
+    helpText="When a Notification/Alert needs a further detailed explanation, it goes here."
+    className=""
+    actions={
       <>
-        <Button variant="outlined" color="neutral">
+        <Button style="secondary-outline" color="neutral">
           Button
         </Button>
-        <Button variant="text" color="neutral">
+        <Button style="subtle" color="neutral">
           Button
         </Button>
       </>
@@ -78,5 +78,5 @@ export const Rtl = withRtl(() => (
 ));
 
 export const RtlMinimal = withRtl(() => (
-  <InlineAlert title="Notification/Alert messag" hasClose />
+  <InlineAlert leadText="Notification/Alert messag" closeButton />
 ));

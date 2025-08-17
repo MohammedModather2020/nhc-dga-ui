@@ -44,7 +44,7 @@ const result = (them: Theme): { [k in ThemeColorName]: InlineAlertColor } => ({
   info: {
     icon: infoIcon,
     vLine: them.palette.info[600],
-    border: them.palette.info[200],
+    border: them.palette.neutral[200],
     font: them.palette.info[700],
     bg: them.palette.info[25],
   },

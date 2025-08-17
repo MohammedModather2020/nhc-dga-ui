@@ -1,8 +1,0 @@
-{
-  "description": "Version 2",
-  "author": "Ashraf Ainia",
-  "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "types": "./index.d.ts"
-}

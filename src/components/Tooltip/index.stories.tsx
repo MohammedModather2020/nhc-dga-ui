@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Tooltip from ".";
-import Tag from "../Tag";
+import Tag from "../../components/Tag";
 
 const meta = {
   title: "DGAUI/Tooltip",
@@ -11,7 +11,7 @@ const meta = {
     title: {
       control: { type: "text" },
     },
-    description: {
+    content: {
       control: { type: "text" },
     },
     noBeak: {
@@ -26,11 +26,11 @@ const meta = {
   },
   args: {
     title: "Tooltip title",
-    description:
+    content:
       "Max width of tooltips is 240px - text will wrap automatically",
     children: "Tooltip children",
-    placement: "right",
-    alignment: "center",
+    beakPlacement: "right",
+    beakAlignment: "center",
     noBeak: false,
     inverted: false,
     icon: true,
@@ -72,7 +72,7 @@ export const CustomColor: Story = {
 export const AllPlacements = () => {
   const props = {
     title: "Title",
-    description:
+    content:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     inverted: true,
   };
@@ -88,17 +88,17 @@ export const AllPlacements = () => {
       >
         <div style={{ margin: 4 }}></div>
         <div style={{ margin: 4 }}>
-          <Tooltip {...props} placement="left" alignment="start">
+          <Tooltip {...props} beakPlacement="left" beakAlignment="start">
             <Tag>left-start</Tag>
           </Tooltip>
         </div>
         <div style={{ margin: 4 }}>
-          <Tooltip {...props} placement="left" alignment="center">
+          <Tooltip {...props} beakPlacement="left" beakAlignment="center">
             <Tag>left-center</Tag>
           </Tooltip>
         </div>
         <div style={{ margin: 4 }}>
-          <Tooltip {...props} placement="left" alignment="end">
+          <Tooltip {...props} beakPlacement="left" beakAlignment="end">
             <Tag>left-end</Tag>
           </Tooltip>
         </div>
@@ -113,17 +113,17 @@ export const AllPlacements = () => {
       >
         <div style={{ display: "flex", justifyContent: "space-evenly" }}>
           <div style={{ margin: 4 }}>
-            <Tooltip {...props} placement="top" alignment="start">
+            <Tooltip {...props} beakPlacement="top" beakAlignment="start">
               <Tag>top-start</Tag>
             </Tooltip>
           </div>
           <div style={{ margin: 4 }}>
-            <Tooltip {...props} placement="top" alignment="center">
+            <Tooltip {...props} beakPlacement="top" beakAlignment="center">
               <Tag>top-center</Tag>
             </Tooltip>
           </div>
           <div style={{ margin: 4 }}>
-            <Tooltip {...props} placement="top" alignment="end">
+            <Tooltip {...props} beakPlacement="top" beakAlignment="end">
               <Tag>top-end</Tag>
             </Tooltip>
           </div>
@@ -131,17 +131,17 @@ export const AllPlacements = () => {
 
         <div style={{ display: "flex", justifyContent: "space-evenly" }}>
           <div style={{ margin: 4 }}>
-            <Tooltip {...props} placement="bottom" alignment="start">
+            <Tooltip {...props} beakPlacement="bottom" beakAlignment="start">
               <Tag>bottom-start</Tag>
             </Tooltip>
           </div>
           <div style={{ margin: 4 }}>
-            <Tooltip {...props} placement="bottom" alignment="center">
+            <Tooltip {...props} beakPlacement="bottom" beakAlignment="center">
               <Tag>bottom-center</Tag>
             </Tooltip>
           </div>
           <div style={{ margin: 4 }}>
-            <Tooltip {...props} placement="bottom" alignment="end">
+            <Tooltip {...props} beakPlacement="bottom" beakAlignment="end">
               <Tag>bottom-end</Tag>
             </Tooltip>
           </div>
@@ -157,17 +157,17 @@ export const AllPlacements = () => {
       >
         <div style={{ margin: 4 }}></div>
         <div style={{ margin: 4 }}>
-          <Tooltip {...props} placement="right" alignment="start">
+          <Tooltip {...props} beakPlacement="right" beakAlignment="start">
             <Tag>right-start</Tag>
           </Tooltip>
         </div>
         <div style={{ margin: 4 }}>
-          <Tooltip {...props} placement="right" alignment="center">
+          <Tooltip {...props} beakPlacement="right" beakAlignment="center">
             <Tag>right-center</Tag>
           </Tooltip>
         </div>
         <div style={{ margin: 4 }}>
-          <Tooltip {...props} placement="right" alignment="end">
+          <Tooltip {...props} beakPlacement="right" beakAlignment="end">
             <Tag>right-end</Tag>
           </Tooltip>
         </div>

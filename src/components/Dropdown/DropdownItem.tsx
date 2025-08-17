@@ -23,7 +23,7 @@ const DropdownItem: React.FC<DGA_DropdownItemProps> = ({
   ...props
 }) => {
   const theme = useTheme();
-  
+
   return (
     <StyledComponent
       className={mergeStrings(

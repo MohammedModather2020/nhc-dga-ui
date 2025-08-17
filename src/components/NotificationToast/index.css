@@ -7,5 +7,5 @@
   margin: 16px;
 }
 .margin button {
-  width: 150px;
+  min-width: 150px;
 }

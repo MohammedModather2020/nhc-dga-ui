@@ -10,22 +10,24 @@ interface DGA_SwitchProps
     React.InputHTMLAttributes<HTMLInputElement>,
     "checked" | "onChange"
   > {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  error?: React.ReactNode;
+  label?: React.ReactNode;
+  helperText?: React.ReactNode;
+  alertMessage?: React.ReactNode;
   color?: ColorName;
   checked?: boolean;
   trailSwitch?: boolean;
+  icon?: React.ReactNode;
   onChange?: (event: React.SyntheticEvent, isChecked: boolean) => void;
 }
 
 const Switch: React.FC<DGA_SwitchProps> = ({
   label,
-  description,
+  helperText,
   color,
-  error,
+  alertMessage,
   checked,
   trailSwitch,
+  icon,
   onChange,
   ...props
 }) => {
@@ -43,7 +45,7 @@ const Switch: React.FC<DGA_SwitchProps> = ({
   let sliderBgActive = theme.palette.neutral[500];
   let sliderBgDisabled = theme.palette.neutral[300];
 
-  const id = generateUniqueId();
+  const id = props.id || generateUniqueId();
 
   return (
     <StyledComponent
@@ -72,17 +74,19 @@ const Switch: React.FC<DGA_SwitchProps> = ({
             checked={checked}
             onChange={(e) => onChange && onChange(e, e.target.checked)}
           />
-          <span className="dgaui_switchSlider"></span>
+          <span className="dgaui_switchSlider">
+            {icon && <span className="icon">{icon}</span>}
+          </span>
         </label>
         <label htmlFor={id} className="dgaui_switchLabel">
           {label}
         </label>
       </div>
       <div className="dgaui_switchDescription">
-        {description && (
-          <div className="dgaui_switchDescriptionText">{description}</div>
+        {helperText && (
+          <div className="dgaui_switchDescriptionText">{helperText}</div>
         )}
-        {error && <div className="dgaui_switchDescriptionError">{error}</div>}
+        {alertMessage && <div className="dgaui_switchDescriptionError">{alertMessage}</div>}
       </div>
     </StyledComponent>
   );
@@ -272,6 +276,21 @@ const StyledComponent = styled.div<{
         &:before {
           background-color: #fff;
         }
+      }
+    }
+    .icon {
+      display: none;
+    }
+    &:has(input:checked) {
+      .icon {
+        position: absolute;
+        z-index: 2;
+        inset-inline-end: 5px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
       }
     }
 

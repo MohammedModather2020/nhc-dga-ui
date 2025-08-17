@@ -61,7 +61,7 @@ const FileUpload: React.FC<DGA_FileUploadProps> = ({
         {!submitButton && (
           <Button
             color="neutral"
-            variant="contained"
+            style="neutral"
             disabled={porps.disabled}
             type="button"
           >

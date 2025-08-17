@@ -8,27 +8,23 @@ const meta = {
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
-    color: {
-      options: Object.keys(defaultTheme.palette).concat([
-        "red",
-        "yellow",
-        "green",
-      ]),
+    style: {
+      options: ["neutral", "green", "blue", "yellow", "red"],
       control: { type: "select" },
     },
     size: {
       options: Object.keys(sizes),
       control: { type: "radio" },
     },
-    variant: {
+    status: {
       options: ["subtle", "inverted", "ghost"],
       control: { type: "radio" },
     },
   },
   args: {
-    color: "neutral",
-    size: "large",
-    variant: "subtle",
+    style: "neutral",
+    size: "medium",
+    status: "subtle",
   },
 } satisfies Meta<typeof StatusTag>;
 
