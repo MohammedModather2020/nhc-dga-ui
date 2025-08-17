@@ -31,6 +31,7 @@ const meta = {
     disabled: false,
     defaultExpanded: false,
     size: "medium",
+    flush: false,
   },
 } satisfies Meta<typeof Accordion>;
 

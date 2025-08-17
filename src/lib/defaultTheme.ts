@@ -2,6 +2,7 @@ const defaultTheme: Theme = {
   direction: "ltr",
   fontFamily: "IBM Plex Sans",
   textColor: "#161616",
+  textOnColor: "#FFFFFF",
   palette: {
     neutral: {
       25: "#FCFCFD",

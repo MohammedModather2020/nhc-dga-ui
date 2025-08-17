@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
+import React from "react";
 import TextInput, { sizes } from ".";
 import withRtl from "../../lib/RTL";
-import React from "react";
 import Button from "../Button";
 
 const meta = {
@@ -18,11 +18,6 @@ const meta = {
       control: { type: "radio" },
       table: { defaultValue: { summary: "large" } },
     },
-    variant: {
-      options: ["default", "darker", "lighter"],
-      control: { type: "radio" },
-      table: { defaultValue: { summary: "default" } },
-    },
     error: {
       control: { type: "boolean" },
     },
@@ -33,11 +28,11 @@ const meta = {
   args: {
     size: "large",
     label: "Label",
-    variant: "default",
+    style: "default",
     error: false,
     readOnly: false,
     disabled: false,
-    prefix: "",
+    prefix: "#",
     suffix: "",
   },
 } satisfies Meta<typeof TextInput>;
@@ -73,7 +68,7 @@ export const Error: Story = {
 };
 
 export const RTL = withRtl(() => (
-  <TextInput label="العنوان" placeholder="نص توضيحي" />
+  <TextInput label="العنوان" placeholder="نص توضيحي" icon="🔎"/>
 ));
 
 export const Ref = () => {

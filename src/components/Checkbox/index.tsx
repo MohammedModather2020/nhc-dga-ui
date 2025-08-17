@@ -1,53 +1,61 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import useTheme from "../../lib/useTheme";
-import { generateUniqueId, mergeStrings } from "../../lib/helpers";
-import checkboxColors from "./checkboxColors";
 import feedbackIcon from "../../assets/images/Feedback-Icon.png";
+import checkboxColors from "./checkboxColors";
+import useTheme from "../../lib/useTheme";
 import Icon from "./Icon";
+import { generateUniqueId, mergeStrings } from "../../lib/helpers";
 
 export const sizes = {
-  small: { w: 14, h: 14, svgW: 9, svgH: 9, svgLeft: 2.5, svgTop: 3 },
-  medium: { w: 18, h: 18, svgW: 12, svgH: 12, svgLeft: 3, svgTop: 4 },
-  large: { w: 22, h: 22, svgW: 14, svgH: 14, svgLeft: 4, svgTop: 5 },
+  xSmall: { w: 14, h: 14, svgW: 9, svgH: 9, svgLeft: 2.5, svgTop: 3 },
+  small: { w: 18, h: 18, svgW: 12, svgH: 12, svgLeft: 3, svgTop: 4 },
+  medium: { w: 22, h: 22, svgW: 14, svgH: 14, svgLeft: 4, svgTop: 5 },
 };
 
 export interface DGA_CheckboxProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "size"
+    "onChange" | "size" | "style"
   > {
   label?: React.ReactNode;
   description?: React.ReactNode;
   error?: React.ReactNode;
-  color?: ColorName;
   onChange?: (e: React.SyntheticEvent, value: boolean) => void;
   value?: any;
-  size?: Size;
+  size?: "xSmall" | "small" | "medium";
+  indeterminate?: boolean;
+  style?: "primary" | "neutral";
 }
 
 const Checkbox: React.FC<DGA_CheckboxProps> = ({
   label,
   description,
-  color,
   error,
   onChange,
   value,
   size,
+  style = "primary",
+  indeterminate = false,
   ...props
 }) => {
   const theme = useTheme();
   const colors = checkboxColors(theme);
 
-  const colorNameResult: ColorName = color ?? "primary";
-  const sizeResult: Size = size ?? "large";
+  const sizeResult: "xSmall" | "small" | "medium" = size ?? "medium";
 
   let fontColor = theme.textColor;
-  let backgroundColor = colors[colorNameResult].default;
-  let backgroundColorHovered = colors[colorNameResult].hovered;
-  let backgroundColorActive = colors[colorNameResult].active;
+  let backgroundColor = colors[style].default;
+  let backgroundColorHovered = colors[style].hovered;
+  let backgroundColorActive = colors[style].active;
 
   const id = generateUniqueId();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.indeterminate = indeterminate;
+    }
+  }, [indeterminate]);
 
   return (
     <StyledComponent
@@ -69,6 +77,7 @@ const Checkbox: React.FC<DGA_CheckboxProps> = ({
       <div className="dgaui_checkboxHead">
         <label className="dgaui_checkbox">
           <input
+            ref={inputRef}
             id={id}
             type="checkbox"
             {...props}
@@ -77,7 +86,7 @@ const Checkbox: React.FC<DGA_CheckboxProps> = ({
               onChange && onChange(e, e.target.checked);
             }}
           />
-          <Icon />
+          <Icon indeterminate={indeterminate} />
         </label>
         {label && (
           <label htmlFor={props.id || id} className="dgaui_checkboxLabel">
@@ -223,7 +232,14 @@ const StyledComponent = styled.div<{
     &:has(input:checked) {
       .dgaui_checkbox {
         background-color: ${(props) => props.$customStyle.backgroundColor};
-
+        svg .checkmark {
+          fill: #fff;
+        }
+      }
+    }
+    &:has(input:indeterminate) {
+      .dgaui_checkbox {
+        background-color: ${(props) => props.$customStyle.backgroundColor};
         svg .checkmark {
           fill: #fff;
         }
@@ -240,10 +256,24 @@ const StyledComponent = styled.div<{
           display: none;
         }
       }
+
+      .dgaui_checkboxLabel {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
     }
     &:has(input:disabled:checked) {
       .dgaui_checkbox {
         background-color: #9da4ae;
+      }
+    }
+    &:has(input:disabled:indeterminate) {
+      .dgaui_checkbox {
+        background-color: #9da4ae;
+
+        svg .checkmark {
+          fill: #fff;
+        }
       }
     }
   }

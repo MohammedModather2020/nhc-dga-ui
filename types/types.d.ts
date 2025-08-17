@@ -52,6 +52,7 @@ type ThemePalette = {
 type Theme = {
   direction: "rtl" | "ltr";
   textColor: string;
+  textOnColor: string;
   fontFamily: string;
   palette: ThemePalette;
   typography: {
@@ -101,3 +102,11 @@ type Theme = {
 };
 
 type ThemeProps = DeepPartial<Theme>;
+
+type SelectorsObject = {
+  default?: string;
+  hovered?: string;
+  active?: string;
+  disabled?: string;
+  focus?: string;
+};

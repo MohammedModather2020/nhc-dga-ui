@@ -13,11 +13,6 @@ const meta = {
     label: {
       control: { type: "text" },
     },
-    variant: {
-      options: ["default", "darker", "lighter"],
-      control: { type: "radio" },
-      table: { defaultValue: { summary: "default" } },
-    },
     error: {
       control: { type: "boolean" },
     },
@@ -27,10 +22,12 @@ const meta = {
   },
   args: {
     label: "Label",
-    variant: "default",
+    style: "default",
     error: false,
     readOnly: false,
     disabled: false,
+    resize: true,
+    scrollBar: false,
   },
 } satisfies Meta<typeof Textarea>;
 

@@ -8,18 +8,22 @@ export const sizes = {
   large: { w: 320, h: 40, p: 8, f: 16, prefixW: 61 },
 };
 
-type Variant = "default" | "darker" | "lighter";
+type Style = "default" | "filledDarker" | "filledLighter";
 
 export interface DGA_TextInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "prefix"> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "size" | "prefix" | "style"
+  > {
   label?: React.ReactNode;
   size?: "large" | "medium";
-  variant?: Variant;
+  style?: Style;
   error?: boolean;
   prefix?: React.ReactNode;
   prefixStyle?: "solid" | "subtle";
   suffix?: React.ReactNode;
   suffixStyle?: "solid" | "subtle";
+  icon?: React.ReactNode;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
@@ -27,12 +31,13 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
     {
       label,
       size = "large",
-      variant,
+      style,
       error,
       prefix,
       prefixStyle = "solid",
       suffix,
       suffixStyle = "solid",
+      icon,
       ...props
     },
     ref
@@ -65,13 +70,13 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
     let suffixBgHover = theme.palette.neutral[100];
     let suffixBgActive = theme.palette.neutral[200];
 
-    if (variant === "lighter") {
+    if (style === "filledLighter") {
       backgroundColor = theme.palette.neutral[25];
       border = "1px solid transparent";
       borderHovered = `1px solid ${theme.palette.neutral[400]}`;
       borderFocused = `1px solid ${theme.palette.neutral[400]}`;
     }
-    if (variant === "darker") {
+    if (style === "filledDarker") {
       backgroundColor = theme.palette.neutral[100];
     }
 
@@ -93,6 +98,7 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
           suffixBgHover,
           suffixBgActive,
           size,
+          iconPadding: icon ? "20px" : "0px",
         }}
       >
         <label
@@ -103,24 +109,27 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
         </label>
         {prefix && <div className="prefix">{prefix}</div>}
         {suffix && <div className="suffix">{suffix}</div>}
-        <StyledComponent
-          $customStyle={{
-            direction: theme.direction,
-            minWidth: sizes[sizeResult].w,
-            height: sizes[sizeResult].h,
-            padding: sizes[sizeResult].p,
-            fontSize: sizes[sizeResult].f,
-            placeholderFontColor,
-            fontColor,
-            border,
-            borderHovered,
-            borderFocused,
-            backgroundColor,
-            shadowFocus,
-          }}
-          {...props}
-          ref={ref}
-        />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {icon && <div className="icon">{icon}</div>}
+          <StyledComponent
+            $customStyle={{
+              direction: theme.direction,
+              minWidth: sizes[sizeResult].w,
+              height: sizes[sizeResult].h,
+              padding: sizes[sizeResult].p,
+              fontSize: sizes[sizeResult].f,
+              placeholderFontColor,
+              fontColor,
+              border,
+              borderHovered,
+              borderFocused,
+              backgroundColor,
+              shadowFocus,
+            }}
+            {...props}
+            ref={ref}
+          />
+        </div>
         <StyledComponentSpan
           $bgColor={animationColor}
           className="dgauiInputSeparator"
@@ -140,6 +149,7 @@ const RootStyledComponent = styled.div<{
     suffixBgHover: string;
     suffixBgActive: string;
     size?: "large" | "medium";
+    iconPadding: string;
   };
 }>`
   position: relative;
@@ -158,7 +168,6 @@ const RootStyledComponent = styled.div<{
     align-items: center;
     width: ${(p) => (p.$customStyle.size === "large" ? "74px" : "61px")};
     height: ${(p) => (p.$customStyle.size === "large" ? "38px" : "30px")};
-    background-color: ${(p) => p.$customStyle.prefixBg};
     bottom: 3px;
     inset-inline-start: 1px;
     border-start-start-radius: 4px;
@@ -167,12 +176,27 @@ const RootStyledComponent = styled.div<{
     color: ${(p) => p.$theme.palette.neutral[500]};
     transition: background-color 0.2s;
     overflow: hidden;
+  }
+
+  .prefix {
+    background-color: ${(p) => p.$customStyle.prefixBg};
 
     &:hover {
       background-color: ${(p) => p.$customStyle.prefixBgHover};
     }
     &:active {
       background-color: ${(p) => p.$customStyle.prefixBgActive};
+    }
+  }
+
+  .suffix {
+    background-color: ${(p) => p.$customStyle.suffixBg};
+
+    &:hover {
+      background-color: ${(p) => p.$customStyle.suffixBgHover};
+    }
+    &:active {
+      background-color: ${(p) => p.$customStyle.suffixBgActive};
     }
   }
 
@@ -185,11 +209,25 @@ const RootStyledComponent = styled.div<{
     inset-inline-end: 1px;
   }
 
+  .icon {
+    width: calc(${(p) => p.$customStyle.iconPadding} + 10px);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input {
+    padding-inline-start: calc(${(p) => p.$customStyle.iconPadding} + 8px);
+  }
+
   &:has(.prefix) {
     input {
-      padding-inline-start: calc(
-        ${(p) => (p.$customStyle.size === "large" ? "74px" : "61px")} + 8px
-      );
+      padding-inline-start: calc(${(p) => (p.$customStyle.size === "large" ? "74px" : "61px")} + ${(p) => p.$customStyle.iconPadding} + 8px);
+    }
+    .icon {
+      inset-inline-start: ${(p) =>
+        p.$customStyle.size === "large" ? "74px" : "61px"};
     }
   }
 

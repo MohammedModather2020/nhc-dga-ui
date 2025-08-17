@@ -1,10 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Radio, { sizes } from ".";
-import defaultTheme from "../../lib/defaultTheme";
+import Loading, { sizes } from ".";
 
 const meta = {
   title: "DGAUI/Loading",
-  component: Radio,
+  component: Loading,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
   argTypes: {
@@ -12,20 +11,36 @@ const meta = {
       options: Object.keys(sizes),
       control: { type: "select" },
     },
-    color: {
-      options: Object.keys(defaultTheme.palette),
+    style: {
+      options: ["primary", "neutral", "on-color"],
       control: { type: "select" },
     },
   },
   args: {
-    color: "primary",
+    style: "primary",
     size: "medium",
   },
-} satisfies Meta<typeof Radio>;
+} satisfies Meta<typeof Loading>;
 
 export default meta;
 
 // Stories
-type Story = StoryObj<typeof Radio>;
+type Story = StoryObj<typeof Loading>;
 
-export const Default: Story = {};
+export const Default = (args: any) => {
+  if (args.style === "on-color") {
+    return (
+      <div
+        style={{
+          backgroundColor: "#074D31",
+          padding: 56,
+          minWidth: 400,
+          textAlign: "center",
+        }}
+      >
+        <Loading {...args} />
+      </div>
+    );
+  }
+  return <Loading {...args} />;
+};

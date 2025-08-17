@@ -1,16 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import useTheme from "../../lib/useTheme";
-import { generateUniqueId, mergeStrings } from "../../lib/helpers";
+import { mergeStrings } from "../../lib/helpers";
 import radioColors from "./radioColors";
 import feedbackIcon from "../../assets/images/Feedback-Icon.png";
 
 export interface DGA_RadioProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "onChange" | "style"
+  > {
   label: React.ReactNode;
   description?: React.ReactNode;
   error?: React.ReactNode;
-  color?: ColorName;
+  style?: "primary" | "neutral";
   onChange?: (e: React.SyntheticEvent, value: any) => void;
   value?: any;
   groupValue?: any;
@@ -19,17 +22,17 @@ export interface DGA_RadioProps
 const Radio: React.FC<DGA_RadioProps> = ({
   label,
   description,
-  color,
   error,
   onChange,
   value,
   groupValue,
+  style = "primary",
   ...props
 }) => {
   const theme = useTheme();
   const colors = radioColors(theme);
 
-  const colorNameResult: ColorName = color ?? "primary";
+  const colorNameResult: "primary" | "neutral" = style ?? "primary";
 
   let fontColor = theme.textColor;
   let backgroundColor = colors[colorNameResult].default;
@@ -110,6 +113,7 @@ const StyledComponent = styled.div<{
     padding-inline-start: 40px;
     .dgaui_radioDescriptionText {
       margin-top: 8px;
+      color: ${(props) => props.$customStyle.theme.palette.neutral[700]};
     }
     .dgaui_radioDescriptionError {
       font-weight: 500;

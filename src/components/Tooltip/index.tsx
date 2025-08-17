@@ -7,13 +7,13 @@ import qIcon from "../../assets/images/qIcon.png";
 const caretSize = 6;
 
 interface DGA_TooltipProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"|"content"> {
   children: React.ReactNode;
   title?: React.ReactNode;
-  description?: React.ReactNode;
+  content?: React.ReactNode;
   jsxContents?: React.ReactNode;
-  placement?: "top" | "bottom" | "left" | "right";
-  alignment?: "start" | "end" | "center";
+  beakPlacement?: "top" | "bottom" | "left" | "right";
+  beakAlignment?: "start" | "end" | "center";
   noBeak?: boolean;
   inverted?: boolean;
   backgroundColor?: string;
@@ -22,11 +22,11 @@ interface DGA_TooltipProps
 
 const Tooltip: React.FC<DGA_TooltipProps> = ({
   title,
-  description,
+  content,
   jsxContents,
   children,
-  placement = "top",
-  alignment = "center",
+  beakPlacement = "top",
+  beakAlignment = "center",
   noBeak,
   inverted,
   backgroundColor,
@@ -77,7 +77,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
       const tooltipWidth = tooltipRef.current.clientWidth;
       const tooltipHeight = tooltipRef.current.clientHeight;
 
-      if (placement === "top" && alignment === "start") {
+      if (beakPlacement === "top" && beakAlignment === "start") {
         newTop = childrenTop - tooltipHeight - caretSize;
         newLeft = childrenLeft;
         newCaret = {
@@ -86,7 +86,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toBottom,
         };
       }
-      if (placement === "top" && alignment === "center") {
+      if (beakPlacement === "top" && beakAlignment === "center") {
         newTop = childrenTop - tooltipHeight - caretSize;
         newLeft = childrenLeft - tooltipWidth / 2;
         newCaret = {
@@ -95,7 +95,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toBottom,
         };
       }
-      if (placement === "top" && alignment === "end") {
+      if (beakPlacement === "top" && beakAlignment === "end") {
         newTop = childrenTop - tooltipHeight - caretSize;
         newLeft = childrenLeft + caretSize * 3 - tooltipWidth;
         newCaret = {
@@ -105,7 +105,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
         };
       }
 
-      if (placement === "bottom" && alignment === "start") {
+      if (beakPlacement === "bottom" && beakAlignment === "start") {
         newTop = childrenTop + childrenHeight + caretSize;
         newLeft = childrenLeft;
         newCaret = {
@@ -114,7 +114,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toTop,
         };
       }
-      if (placement === "bottom" && alignment === "center") {
+      if (beakPlacement === "bottom" && beakAlignment === "center") {
         newTop = childrenTop + childrenHeight + caretSize;
         newLeft = childrenLeft - tooltipWidth / 2;
         newCaret = {
@@ -123,7 +123,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toTop,
         };
       }
-      if (placement === "bottom" && alignment === "end") {
+      if (beakPlacement === "bottom" && beakAlignment === "end") {
         newTop = childrenTop + childrenHeight + caretSize;
         newLeft = childrenLeft + caretSize * 4 - tooltipWidth;
         newCaret = {
@@ -133,7 +133,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
         };
       }
 
-      if (placement === "left" && alignment === "start") {
+      if (beakPlacement === "left" && beakAlignment === "start") {
         newTop = childrenTop;
         newLeft = childrenLeft - tooltipWidth - caretSize;
         newCaret = {
@@ -142,7 +142,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toRight,
         };
       }
-      if (placement === "left" && alignment === "center") {
+      if (beakPlacement === "left" && beakAlignment === "center") {
         newTop = childrenTop + caretSize * 1.5 - tooltipHeight / 2;
         newLeft = childrenLeft - tooltipWidth - caretSize;
         newCaret = {
@@ -151,7 +151,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toRight,
         };
       }
-      if (placement === "left" && alignment === "end") {
+      if (beakPlacement === "left" && beakAlignment === "end") {
         newTop = childrenTop - tooltipHeight + caretSize * 4;
         newLeft = childrenLeft - tooltipWidth - caretSize;
         newCaret = {
@@ -161,7 +161,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
         };
       }
 
-      if (placement === "right" && alignment === "start") {
+      if (beakPlacement === "right" && beakAlignment === "start") {
         newTop = childrenTop;
         newLeft = childrenLeft + childrenWidth + caretSize;
         newCaret = {
@@ -170,7 +170,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toLeft,
         };
       }
-      if (placement === "right" && alignment === "center") {
+      if (beakPlacement === "right" && beakAlignment === "center") {
         newTop = childrenTop - tooltipHeight / 2 + caretSize * 2;
         newLeft = childrenLeft + childrenWidth + caretSize;
         newCaret = {
@@ -179,7 +179,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
           color: caretColors.toLeft,
         };
       }
-      if (placement === "right" && alignment === "end") {
+      if (beakPlacement === "right" && beakAlignment === "end") {
         newTop = childrenTop - tooltipHeight + caretSize * 4;
         newLeft = childrenLeft + childrenWidth + caretSize;
         newCaret = {
@@ -236,7 +236,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
         ref?.current?.removeEventListener("click", mouseoverHandler);
       };
     }
-  }, [ref, tooltipRef, placement, alignment]);
+  }, [ref, tooltipRef, beakPlacement, beakAlignment]);
 
   return (
     <StyledComponent
@@ -272,7 +272,7 @@ const Tooltip: React.FC<DGA_TooltipProps> = ({
             )}
             <div className="dgaui_tooltipContentText">
               <div className="dgaui_tooltipTitle">{title}</div>
-              <div className="dgaui_tooltipDescription">{description}</div>
+              <div className="dgaui_tooltipDescription">{content}</div>
             </div>
           </>
         )}

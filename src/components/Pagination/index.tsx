@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import useTheme from "../../lib/useTheme";
 import { mergeStrings } from "../../lib/helpers";
-import Menu from "../Menu";
-import MenuItem from "../Menu/MenuItem";
 import checkIcon from "../../assets/images/check.png";
-import Tab from "../Tab";
+// TODO: Update the import from v2 after refactoring the components
+import Menu from "../../components/Menu";
+import Tab from "../../components/Tab";
+import MenuItem from "../../components/Menu/MenuItem";
 
 interface DGA_PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   count: number;
