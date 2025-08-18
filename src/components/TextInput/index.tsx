@@ -128,6 +128,7 @@ const TextInput = React.forwardRef<HTMLInputElement, DGA_TextInputProps>(
             }}
             {...props}
             ref={ref}
+            className="dgaui dgaui_textInput_input"
           />
         </div>
         <StyledComponentSpan
@@ -223,7 +224,10 @@ const RootStyledComponent = styled.div<{
 
   &:has(.prefix) {
     input {
-      padding-inline-start: calc(${(p) => (p.$customStyle.size === "large" ? "74px" : "61px")} + ${(p) => p.$customStyle.iconPadding} + 8px);
+      padding-inline-start: calc(
+        ${(p) => (p.$customStyle.size === "large" ? "74px" : "61px")} +
+          ${(p) => p.$customStyle.iconPadding} + 8px
+      );
     }
     .icon {
       inset-inline-start: ${(p) =>
@@ -236,6 +240,22 @@ const RootStyledComponent = styled.div<{
       padding-inline-end: calc(
         ${(p) => (p.$customStyle.size === "large" ? "74px" : "61px")} + 8px
       );
+    }
+  }
+  &:has(.dgaui_textInput_input:disabled),
+  &:has(.dgaui_textInput_input:read-only) {
+    .dgauiInputSeparator {
+      pointer-events: none;
+    }
+  }
+  &:has(.dgaui_textInput_input:focus) {
+    .dgauiInputSeparator {
+      transform: scaleX(0.995) translateY(-2.5px);
+    }
+  }
+  &:has(.dgaui_textInput_input:active) {
+    .dgauiInputSeparator {
+      transform: scaleX(0.5) translateY(-2.5px);
     }
   }
 `;
@@ -276,25 +296,10 @@ const StyledComponent = styled.input<{
   &:focus {
     ${(props) => props.$customStyle.shadowFocus};
     border: ${(props) => props.$customStyle.borderFocused};
-    + .dgauiInputSeparator {
-      transform: scaleX(0.995) translateY(-2.5px);
-      opacity: 1;
-    }
   }
 
   &:hover {
     border: ${(props) => props.$customStyle.borderHovered};
-  }
-
-  &:active + .dgauiInputSeparator {
-    transform: scaleX(0.5) translateY(-2.5px);
-    opacity: 1;
-  }
-  &:read-only + .dgauiInputSeparator,
-  &:disabled + .dgauiInputSeparator {
-    transform: scaleX(0) translateY(-2.5px);
-    opacity: 0;
-    pointer-events: none;
   }
 `;
 
@@ -304,7 +309,6 @@ const StyledComponentSpan = styled.span<{ $bgColor: string }>`
   display: block;
   transform: scaleX(0) translateY(-2.5px);
   transform-origin: 50%;
-  opacity: 1;
   transition: all 0.2s;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
