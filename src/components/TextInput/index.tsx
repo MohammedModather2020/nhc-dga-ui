@@ -301,6 +301,9 @@ const StyledComponent = styled.input<{
   &:hover {
     border: ${(props) => props.$customStyle.borderHovered};
   }
+  &:disabled {
+    pointer-events: none;
+  }
 `;
 
 const StyledComponentSpan = styled.span<{ $bgColor: string }>`

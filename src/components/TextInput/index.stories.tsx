@@ -34,6 +34,7 @@ const meta = {
     disabled: false,
     prefix: "#",
     suffix: "",
+    icon: "🔎",
   },
 } satisfies Meta<typeof TextInput>;
 
@@ -68,7 +69,7 @@ export const Error: Story = {
 };
 
 export const RTL = withRtl(() => (
-  <TextInput label="العنوان" placeholder="نص توضيحي" icon="🔎"/>
+  <TextInput label="العنوان" placeholder="نص توضيحي" icon="🔎" />
 ));
 
 export const Ref = () => {
