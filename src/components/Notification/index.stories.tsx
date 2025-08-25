@@ -47,7 +47,7 @@ export const WithLink: Story = {
 	args: {
 		style: 'info',
 		link: (
-			<Link color='info' href='https://www.google.com'>
+			<Link color='info' href='https://www.npmjs.com/package/nhc-dga-ui'>
 				Link
 			</Link>
 		),
@@ -58,7 +58,7 @@ export const WithLinkAndButton: Story = {
 	args: {
 		style: 'info',
 		link: (
-			<Link color='info' href='https://www.google.com'>
+			<Link color='info' href='https://www.npmjs.com/package/nhc-dga-ui'>
 				Link
 			</Link>
 		),
