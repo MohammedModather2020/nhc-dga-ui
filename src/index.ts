@@ -40,6 +40,9 @@ import toast from "./components/NotificationToast";
 import Tooltip from "./components/Tooltip";
 import HeaderMenuItem from "./components/HeaderMenuItem";
 import NavigationDrawerItem from "./components/NavigationDrawerItem";
+import SearchBox from "./components/SearchBox";
+import ContentSwitcher from "./components/ContentSwitcher";
+import Divider from "./components/Divider";
 
 export {
   withRtl,
@@ -84,4 +87,7 @@ export {
   Tooltip,
   HeaderMenuItem,
   NavigationDrawerItem,
+  SearchBox,
+  ContentSwitcher,
+  Divider,
 };
