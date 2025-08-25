@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import List from ".";
 import defaultTheme from "../../lib/defaultTheme";
 import checkPrimaryIcon from "./checkPrimaryIcon.svg";
+import withRtl from "../../lib/RTL";
 
 const meta = {
   title: "DGAUI/List",
@@ -56,7 +57,7 @@ export const LevelsOl = () => {
 
 export const LevelsUl = () => {
   return (
-    <List type="ul">
+    <List type="icon" iconUrl="">
       <li>List item</li>
       <li>List item</li>
       <List type="ul" level={2}>
@@ -68,3 +69,5 @@ export const LevelsUl = () => {
     </List>
   );
 };
+
+export const Rtl = withRtl(LevelsUl);

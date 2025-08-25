@@ -7,7 +7,9 @@ import useTheme from "../../lib/useTheme";
 interface DGA_RadioGroupProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   onChange?: (event: React.SyntheticEvent, value: any) => void;
-  children: React.ReactElement<typeof Radio>[];
+  children:
+    | React.ReactElement<typeof Radio>
+    | React.ReactElement<typeof Radio>[];
   name?: string;
   value?: any;
   layout?: "vertiaval" | "horizontal";
