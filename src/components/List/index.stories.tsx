@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import List from ".";
 import checkPrimaryIcon from "./checkPrimaryIcon.svg";
+import withRtl from "../../lib/RTL";
 
 const meta = {
   title: "DGAUI/List",
@@ -87,3 +88,5 @@ export const LevelsUl = () => {
     </List>
   );
 };
+
+export const Rtl = withRtl(LevelsUl);

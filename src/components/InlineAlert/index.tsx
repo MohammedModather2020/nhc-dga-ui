@@ -11,7 +11,7 @@ import useScreenSizes from "../../lib/hooks/useScreenSizes";
 export interface DGA_InlineAlertProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   leadText: React.ReactNode;
-  helpText?: string;
+  helpText?: React.ReactNode;
   type?: ThemeColorName;
   closeButton?: boolean;
   actions?: React.ReactNode;
