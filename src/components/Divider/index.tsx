@@ -39,7 +39,9 @@ const StyledComponent = styled.hr<{
   ${(p) => p.$lineType === "vertical" && "height: 100%; width: 1px;"}
   ${(p) => p.$lineType === "horizontal" && "height: 1px; width: 100%;"}
   
-  ${(p) => p.$color === "neutral" && "background-color: #D2D6DB;"}
+  ${(p) =>
+    p.$color === "neutral" &&
+    `background-color: ${p.$theme.palette.neutral[300]};`}
   ${(p) =>
     p.$color === "primary" &&
     `background-color: ${p.$theme.palette.primary[600]};`}
