@@ -109,6 +109,7 @@ const StyledComponent = styled.button<{
   height: ${(props) => props.$customStyle.height}px;
   padding: ${(props) => props.$customStyle.padding}px;
   font-size: ${(props) => props.$customStyle.fontSize}px;
+  font-weight: 500;
   color: ${(props) => props.$customStyle.fontColor.default};
   background-color: ${(props) => props.$customStyle.backgroundColor.default};
   border: none;
