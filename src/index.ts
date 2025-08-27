@@ -43,6 +43,11 @@ import NavigationDrawerItem from "./components/NavigationDrawerItem";
 import SearchBox from "./components/SearchBox";
 import ContentSwitcher from "./components/ContentSwitcher";
 import Divider from "./components/Divider";
+import Skeleton from "./components/Skeleton";
+import SkeletonCircle from "./components/Skeleton/Circle";
+import SkeletonSquare from "./components/Skeleton/Square";
+import SkeletonRectangle from "./components/Skeleton/Rectangle";
+import SkeletonLine from "./components/Skeleton/Line";
 
 export {
   withRtl,
@@ -90,4 +95,9 @@ export {
   SearchBox,
   ContentSwitcher,
   Divider,
+  Skeleton,
+  SkeletonCircle,
+  SkeletonSquare,
+  SkeletonRectangle,
+  SkeletonLine,
 };

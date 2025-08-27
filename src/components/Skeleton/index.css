@@ -1,0 +1,22 @@
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.skeletonAnimation {
+  background: linear-gradient(
+    90deg,
+    rgba(157, 164, 174, 0.2) 0%,
+    rgba(210, 214, 219, 0.2) 49.5%,
+    rgba(229, 231, 235, 0.2) 100%
+  );
+
+  animation: blink 1.5s infinite;
+}
