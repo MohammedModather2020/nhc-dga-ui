@@ -48,6 +48,7 @@ import SkeletonCircle from "./components/Skeleton/Circle";
 import SkeletonSquare from "./components/Skeleton/Square";
 import SkeletonRectangle from "./components/Skeleton/Rectangle";
 import SkeletonLine from "./components/Skeleton/Line";
+import Rating from "./components/Rating";
 
 export {
   withRtl,
@@ -100,4 +101,5 @@ export {
   SkeletonSquare,
   SkeletonRectangle,
   SkeletonLine,
+  Rating,
 };
