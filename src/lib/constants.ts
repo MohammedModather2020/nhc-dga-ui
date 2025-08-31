@@ -12,5 +12,6 @@ export const COLORS = {
   white30: "#FFFFFF4D",
   white40: "#FFF6",
   white60: "#FFF9",
+  white70: "#FFFFFFB2",
   white80: "#FFFC",
 };
