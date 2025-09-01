@@ -4,6 +4,9 @@ import Modal from ".";
 import Button from "../Button";
 import withRtl from "../../lib/RTL";
 import circleInfoEx from "../../assets/images/circle_info_ex.svg";
+import Menu from "../Menu";
+import MenuItemGroup from "../Menu/MenuItemGroup";
+import MenuItem from "../Menu/MenuItem";
 
 const meta = {
   title: "DGAUI/Modal",
@@ -54,6 +57,56 @@ export const WithFooter = (args: any) => {
             color="error"
             onClick={() => setOpen(false)}
           >
+            Close
+          </Button>,
+        ]}
+      />
+    </>
+  );
+};
+
+export const WithMenu = (args: any) => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal
+        {...args}
+        open={open}
+        icon={<img src={circleInfoEx} />}
+        onClose={() => setOpen(false)}
+        body={
+          <div>
+            asd
+            <div>
+              <Menu
+                menuItems={
+                  <>
+                    <MenuItemGroup title="نص المجموعة">
+                      <MenuItem icon={"+"}>نص العنصر</MenuItem>
+                      <MenuItem icon={"+"}>نص العنصر</MenuItem>
+                    </MenuItemGroup>
+                    <MenuItemGroup title="نص المجموعة">
+                      <MenuItem icon={"+"}>نص العنصر</MenuItem>
+                      <MenuItem icon={"+"}>نص العنصر</MenuItem>
+                    </MenuItemGroup>
+                  </>
+                }
+              >
+                <div style={{ marginBottom: 300, cursor: "pointer" }}>
+                  قائمة
+                </div>
+              </Menu>
+            </div>
+          </div>
+        }
+        footerStartButtons={[
+          <Button>Button 1</Button>,
+          <Button>Button 2</Button>,
+        ]}
+        footerEndButtons={[
+          <Button color="error" onClick={() => setOpen(false)}>
             Close
           </Button>,
         ]}
