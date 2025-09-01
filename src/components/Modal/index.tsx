@@ -33,61 +33,68 @@ const Modal: React.FC<DGA_ModalProps> = ({
 }) => {
   const theme = useTheme();
   const screenSizes = useScreenSizes();
+  const ref = React.useRef(null);
 
   if (!open) return null;
 
   return (
-    <StyledComponent
-      $theme={theme}
-      $align={align === "start" ? "flex-start" : "center"}
-      $size={size}
-      className={mergeStrings("dgaui dgaui_modal " + props.className)}
-      onClick={() => onClose?.()}
-    >
-      <div
-        {...props}
-        className={
-          "dgaui_modalContent" +
-          (screenSizes.isMobile ? " dgaui_modalMobile" : "")
-        }
-        onClick={(e) => e.stopPropagation()}
+    <>
+      <Backdrop
+        className={"dgaui dgaui_modal_backdrop"}
+        onClick={() => onClose?.()}
+      />
+
+      <StyledComponent
+        $theme={theme}
+        $align={align === "start" ? "flex-start" : "center"}
+        $size={size}
+        className={mergeStrings("dgaui dgaui_modal " + props.className)}
       >
-        <div className="dgaui_modalClose" onClick={() => onClose?.()} />
+        <div
+          {...props}
+          ref={ref}
+          className={
+            "dgaui_modalContent" +
+            (screenSizes.isMobile ? " dgaui_modalMobile" : "")
+          }
+        >
+          <div className="dgaui_modalClose" onClick={() => onClose?.()} />
 
-        {(title || icon) && (
-          <div className="dgaui_modalHeader">
-            {icon && <div className="dgaui_modalHeaderIcon">{icon}</div>}
-            {title && <div className="dgaui_modalHeaderTitle">{title}</div>}
-          </div>
-        )}
+          {(title || icon) && (
+            <div className="dgaui_modalHeader">
+              {icon && <div className="dgaui_modalHeaderIcon">{icon}</div>}
+              {title && <div className="dgaui_modalHeaderTitle">{title}</div>}
+            </div>
+          )}
 
-        {body && (
-          <div className="dgaui_modalHeaderBody dgaui_hiddenScrollbar">
-            {body}
-          </div>
-        )}
+          {body && (
+            <div className="dgaui_modalHeaderBody dgaui_hiddenScrollbar">
+              {body}
+            </div>
+          )}
 
-        {(!!footerStartButtons || !!footerEndButtons) && (
-          <div
-            className={
-              "dgaui_modalHeaderFooter " +
-              (!footerStartButtons && !!footerEndButtons ? "onlyEnd" : "")
-            }
-          >
-            {footerStartButtons && (
-              <div className="dgaui_modalHeaderFooterStart">
-                {footerStartButtons}
-              </div>
-            )}
-            {footerEndButtons && (
-              <div className="dgaui_modalHeaderFooterEnd">
-                {footerEndButtons}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </StyledComponent>
+          {(!!footerStartButtons || !!footerEndButtons) && (
+            <div
+              className={
+                "dgaui_modalHeaderFooter " +
+                (!footerStartButtons && !!footerEndButtons ? "onlyEnd" : "")
+              }
+            >
+              {footerStartButtons && (
+                <div className="dgaui_modalHeaderFooterStart">
+                  {footerStartButtons}
+                </div>
+              )}
+              {footerEndButtons && (
+                <div className="dgaui_modalHeaderFooterEnd">
+                  {footerEndButtons}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </StyledComponent>
+    </>
   );
 };
 
@@ -97,13 +104,14 @@ const StyledComponent = styled.div<{
   $size?: "auto" | 600;
 }>`
   position: fixed;
-  z-index: 2400;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2401;
   opacity: 0;
   animation: opacity 0.225s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
+  justify-self: center;
   inset: 0;
 
   &.dgaui_modal {
@@ -225,6 +233,13 @@ const StyledComponent = styled.div<{
       }
     }
   }
+`;
+
+const Backdrop = styled.div`
+  position: fixed;
+  z-index: 2400;
+  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
 `;
 
 export default Modal;
