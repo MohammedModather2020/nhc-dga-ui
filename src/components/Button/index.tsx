@@ -112,14 +112,13 @@ const StyledComponent = styled.button<{
   font-weight: 500;
   color: ${(props) => props.$customStyle.fontColor.default};
   background-color: ${(props) => props.$customStyle.backgroundColor.default};
-  border: none;
+  border: 2px solid transparent;
   ${(props) =>
     props.$customStyle.borderColor &&
     `border: 1px solid ${props.$customStyle.borderColor.default};`};
   transition: background-color 0.1s;
 
   &:hover {
-    border: none;
     background-color: ${(props) => props.$customStyle.backgroundColor.hovered};
     color: ${(props) => props.$customStyle.fontColor.hovered};
     ${(props) =>
