@@ -41,8 +41,8 @@ const Button = React.forwardRef<HTMLButtonElement, DGA_ButtonProps>(
       hoverBackgroundColor = theme.palette[colorNameResult][100];
       activeBackgroundColor = theme.palette[colorNameResult][200];
       fontColor = buttonColors[colorNameResult].default;
-      border = `border: 2px solid ${theme.palette[colorNameResult][200]}`;
-      borderFocus = "border: 2px solid transparent;";
+      border = `border: 1px solid ${theme.palette[colorNameResult][500]}`;
+      borderFocus = "border: 1px solid transparent;";
     }
     if (variantResult === "text") {
       backgroundColor = "transparent";
