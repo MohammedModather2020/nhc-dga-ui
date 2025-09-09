@@ -27,26 +27,26 @@ const Grid: React.FC<DGA_GridProps> = ({
   const theme = useTheme();
   const { isMobile, isTablet, isDesktop } = useScreenSizes();
 
-  const getColumnWidthPercentage = () => {
-    let result = 100;
+  const getColumnSpan = () => {
+    let result = 12; // Default to full width
     if (isMobile && sm) {
-      result = (sm * 100) / 12;
+      result = sm;
     }
     if (isTablet) {
       if (md) {
-        result = (md * 100) / 12;
+        result = md;
       } else if (sm) {
-        result = (sm * 100) / 12;
+        result = sm;
       }
     }
 
     if (isDesktop) {
       if (lg) {
-        result = (lg * 100) / 12;
+        result = lg;
       } else if (md) {
-        result = (md * 100) / 12;
+        result = md;
       } else if (sm) {
-        result = (sm * 100) / 12;
+        result = sm;
       }
     }
     return result;
@@ -76,7 +76,7 @@ const Grid: React.FC<DGA_GridProps> = ({
     <StyledComponentItem
       {...props}
       $theme={theme}
-      $columnWidthPercentage={+getColumnWidthPercentage().toFixed(3)}
+      $columnSpan={getColumnSpan()}
       $columnSpacing={columnSpacing}
       className={mergeStrings("dgaui dgaui_gridItem", props.className)}
     >
@@ -91,23 +91,18 @@ const StyledComponentContainer = styled.div<{
   $rowSpacing: number;
 }>`
   direction: ${(p) => p.$theme.direction};
-  display: flex;
-  flex-wrap: wrap;
-
-  column-gap: ${(p) => p.$columnSpacing}px;
-  row-gap: ${(p) => p.$rowSpacing}px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: ${(p) => p.$rowSpacing}px ${(p) => p.$columnSpacing}px;
 `;
 
 const StyledComponentItem = styled.div<{
   $theme: Theme;
-  $columnWidthPercentage: number;
+  $columnSpan: number;
   $columnSpacing: number;
 }>`
   direction: ${(p) => p.$theme.direction};
-  flex: ${(p) =>
-    p.$columnSpacing > 0
-      ? `0 1 calc(${p.$columnWidthPercentage}% - ${p.$columnSpacing}px)`
-      : `${p.$columnWidthPercentage}%`};
+  grid-column: span ${(p) => p.$columnSpan};
 `;
 
 export default Grid;

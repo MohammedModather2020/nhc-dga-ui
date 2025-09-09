@@ -20,27 +20,30 @@ export const Default: Story = {
     container: true,
     columnSpacing: 8,
     rowSpacing: 8,
+    lg: 4,
+    md: 6,
+    sm: 12,
   },
   render: function Render(args) {
     return (
       <div style={{ width: 600 }}>
         <Grid {...args}>
-          <Grid lg={4} md={6} sm={12}>
+          <Grid lg={args.lg} md={args.md} sm={args.sm}>
             Item 1
           </Grid>
-          <Grid lg={4} md={6} sm={12}>
+          <Grid lg={args.lg} md={args.md} sm={args.sm}>
             Item 2
           </Grid>
-          <Grid lg={4} md={6} sm={12}>
+          <Grid lg={args.lg} md={args.md} sm={args.sm}>
             Item 3
           </Grid>
-          <Grid lg={4} md={6} sm={12}>
+          <Grid lg={args.lg} md={args.md} sm={args.sm}>
             Item 4
           </Grid>
-          <Grid lg={4} md={6} sm={12}>
+          <Grid lg={args.lg} md={args.md} sm={args.sm}>
             Item 5
           </Grid>
-          <Grid lg={4} md={6} sm={12}>
+          <Grid lg={args.lg} md={args.md} sm={args.sm}>
             Item 6
           </Grid>
         </Grid>
@@ -49,26 +52,26 @@ export const Default: Story = {
   },
 };
 
-export const Rtl = withRtl(() => {
+export const Rtl = withRtl((args) => {
   return (
     <div style={{ width: 600 }}>
       <Grid container columnSpacing={8} rowSpacing={8}>
-        <Grid lg={4} md={6} sm={12}>
+        <Grid lg={args.lg} md={args.md} sm={args.sm}>
           Item 1
         </Grid>
-        <Grid lg={4} md={6} sm={12}>
+        <Grid lg={args.lg} md={args.md} sm={args.sm}>
           Item 2
         </Grid>
-        <Grid lg={4} md={6} sm={12}>
+        <Grid lg={args.lg} md={args.md} sm={args.sm}>
           Item 3
         </Grid>
-        <Grid lg={4} md={6} sm={12}>
+        <Grid lg={args.lg} md={args.md} sm={args.sm}>
           Item 4
         </Grid>
-        <Grid lg={4} md={6} sm={12}>
+        <Grid lg={args.lg} md={args.md} sm={args.sm}>
           Item 5
         </Grid>
-        <Grid lg={4} md={6} sm={12}>
+        <Grid lg={args.lg} md={args.md} sm={args.sm}>
           Item 6
         </Grid>
       </Grid>
